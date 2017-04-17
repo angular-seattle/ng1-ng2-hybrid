@@ -1,0 +1,34 @@
+<div layout="column">
+    JENS EHOMEPAGE STUFF IS WORKING {{vm.pageTitle}}
+
+    <div flex="100" layout="row">
+        <div flex="20">
+            <label>Checkbox 1: 
+                <input
+                    type="checkbox"
+                    ng-model="vm.checkbox1"
+                    >
+                </input>
+            </label>
+        </div>
+        <div flex="80">
+            {{vm.checkbox1}}
+        </div>
+    </div>
+    <div flex="100" layout="row">
+        <div flex="20">
+            <label>Text 1: 
+                <input
+                    type="text"
+                    ng-model="vm.text1"
+                    >
+                </input>
+            </label>
+        </div>
+        <div flex="80">
+            {{vm.text1}}
+        </div>
+    </div>
+</div>
+
+

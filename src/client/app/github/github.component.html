@@ -1,0 +1,58 @@
+<md-content class="github-main" layout-gt-sm="row" layout-padding>
+    <div layout="column" layout-fill>
+        <md-input-container class="md-block">
+            <label>Github Repository URL</label>
+            <input class="github-repo-url" ng-model="vm.repoUrl" ng-change="vm.parseAndSetRepoPath()">
+        </md-input-container>
+
+        <div layout="row">
+            <md-input-container>
+                <md-select ng-model="vm.baseTag" placeholder="Select BASE tag">
+                    <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container>
+                <md-select ng-model="vm.headTag" placeholder="Select HEAD tag">
+                    <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <md-input-container>
+            <md-button
+                ng-if="vm.repoUrl && vm.baseTag && vm.headTag"
+                ng-click="vm.compareBetweenTags()"
+                class="md-raised"
+                >
+                LIST FILES
+            </md-button>
+        </md-input-container>
+
+        <md-input-container ng-if="vm.comparisonData.files.length > 0">
+            <md-select
+                ng-model="vm.fileTargetObj"
+                placeholder="Select file to compare"
+                type="search"
+                >
+                <md-option ng-value="opt" ng-repeat="opt in vm.comparisonData.files">{{ opt.filename }}</md-option>
+            </md-select>
+        </md-input-container>
+
+        <md-input-container>
+            <md-button
+                ng-if="vm.fileTargetObj.filename"
+                ng-click="vm.compareFileBetweenTags()"
+                class="md-raised"
+                >
+                COMPARE
+            </md-button>
+        </md-input-container>
+
+        <github-file-info-card
+            ing-if="vm.haveFileInfo()"
+            file-info="vm.fileInfo"
+            >
+        </github-file-info-card>
+    </div>
+</md-content>
