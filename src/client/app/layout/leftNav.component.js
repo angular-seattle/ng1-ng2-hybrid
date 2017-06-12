@@ -17,13 +17,17 @@
     `;
   }
 
-  function LeftNavController() {
+  LeftNavController.$inject = [
+    '$mdSidenav'
+  ];
+
+  function LeftNavController($mdSidenav) {
     var vm = this;
 
     vm.onOpenMenu = onOpenMenu;
 
     function onOpenMenu() {
-      console.log('Menu click action');
+      $mdSidenav('main-sidenav').open();
     }
   }
 

@@ -69,10 +69,6 @@
     }
 
     function determineShowListFilesButton() {
-      console.log(vm.repoUrl);
-      console.log(vm.baseTag);
-      console.log(vm.headTag);
-
       vm.showListFilesButton = vm.repoUrl && (vm.baseTag !== '') && (vm.headTag !== '');
     }
 

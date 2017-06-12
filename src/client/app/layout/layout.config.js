@@ -13,7 +13,7 @@
     function LayoutConfig($stateProvider, $urlRouterProvider) {
       $stateProvider
         .state('angularSeed', {
-          url: '/',
+          abstract: true,
           views: {
             'angularSeedMain': {
               component: 'angularSeedMain'

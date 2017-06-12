@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('angularSeed.home',
+  angular.module('angularSeed.pureAngularjs',
     [
       'angularSeed.core'
     ]

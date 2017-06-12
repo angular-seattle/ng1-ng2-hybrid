@@ -6,8 +6,8 @@
     [
       'angularSeed.core',
       'angularSeed.github',
-      'angularSeed.home',
-      'angularSeed.layout'
+      'angularSeed.layout',
+      'angularSeed.pureAngularjs'
     ]
   );
 

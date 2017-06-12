@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- This template is based on the Hottowel starter app: https://github.com/johnpapa/generator-hottowel -->
-<html ng-app="angularSeed">
+<html>
 
 <head>
 <style>
@@ -34,7 +34,7 @@
 <!-- endbuild -->
 </head>
 
-<body>
+<body ng-app="angularSeed">
     <div class="angular-seed-main" ui-view="angularSeedMain"></div>
 </div>
 
@@ -51,15 +51,17 @@
 
 <!-- build:js js/lib.js -->
 <!-- angular -->
+<script src="src/client/app/pureAngularjs/pureAngularjs.module.js" type="text/javascript"></script>
+<script src="src/client/app/pureAngularjs/pureAngularjs.config.js" type="text/javascript"></script>
+<script src="src/client/app/pureAngularjs/pureAngularjs.component.js" type="text/javascript"></script>
 <script src="src/client/app/layout/layout.module.js" type="text/javascript"></script>
 <script src="src/client/app/layout/main.component.js" type="text/javascript"></script>
 <script src="src/client/app/layout/leftNav.component.js" type="text/javascript"></script>
-<script src="src/client/app/layout/layout.route.js" type="text/javascript"></script>
+<script src="src/client/app/layout/layout.config.js" type="text/javascript"></script>
 <script src="src/client/app/layout/header.component.js" type="text/javascript"></script>
-<script src="src/client/app/home/home.module.js" type="text/javascript"></script>
-<script src="src/client/app/home/home.controller.js" type="text/javascript"></script>
 <script src="src/client/app/github/github.module.js" type="text/javascript"></script>
 <script src="src/client/app/github/github.fileInfoCard.component.js" type="text/javascript"></script>
+<script src="src/client/app/github/github.config.js" type="text/javascript"></script>
 <script src="src/client/app/github/github.component.js" type="text/javascript"></script>
 <script src="src/client/app/github/github.api.service.js" type="text/javascript"></script>
 <script src="src/client/app/core/core.module.js" type="text/javascript"></script>

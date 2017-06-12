@@ -1,4 +1,13 @@
 .angular-seed-main {
+  md-sidenav {
+    md-toolbar.left-nav-toolbar {
+      $toolbarHeight: 68px;
+
+      min-height: $toolbarHeight;
+      max-height: $toolbarHeight;
+    }
+  }
+
   angular-seed-main {
     .main-container {
       height: 100%;
