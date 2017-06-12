@@ -6,21 +6,17 @@
     .factory('githubApi', GithubApi);
 
   GithubApi.$inject = [
-    '$http',
-    'githubMocks'
+    '$http'
   ];
 
   function GithubApi(
-    $http,
-    githubMocks
+    $http
   ) {
-    var _githubApiBaseUrlRoot = 'https://api.github.com/repos';
-    var _githubApiBaseUrl = '';
-    var _useMocks = true;
+    // var _apiBaseUrlRoot = 'https://api.github.com/repos';
+    var _apiBaseUrlRoot = '/api/github/repos';
+    var _apiBaseUrl = '';
 
     var service = {
-      enableMocks: enableMocks,
-      disableMocks: disableMocks,
       setBaseUrl: setBaseUrl,
       getTags: getTags,
       compareCommits: compareCommits
@@ -30,33 +26,17 @@
 
     //////////////////////////
 
-    function enableMocks() {
-      _useMocks = true;
-    }
-
-    function disableMocks() {
-      _useMocks = false;
-    }
-
     function setBaseUrl(repoPath) {
-      _githubApiBaseUrl = _githubApiBaseUrlRoot + '/' + repoPath;
+      _apiBaseUrl = _apiBaseUrlRoot + '/' + repoPath;
       return service;
     }
 
     function compareCommits(base, head) {
-      if (_useMocks) {
-        return githubMocks.compareCommitsMock();
-      }
-
-      return $http.get(_githubApiBaseUrl + '/compare/' + base + '...' + head);
+      return $http.get(_apiBaseUrl + '/compare/' + base + '...' + head);
     }
 
     function getTags() {
-      if (_useMocks) {
-        return githubMocks.getTagsMock();
-      }
-
-      return $http.get(_githubApiBaseUrl + '/tags');
+      return $http.get(_apiBaseUrl + '/tags');
     }
   }
 })(this);

@@ -3,7 +3,7 @@
 
   angular
     .module('angularSeed.github')
-    .component('angularSeedGithub', {
+    .component('githubComparer', {
       controller: GithubController,
       controllerAs: 'vm',
       templateUrl: '/app/github/github.component.html'
@@ -19,22 +19,23 @@
 
     vm.availableTags = [];
     vm.pageTitle = 'Dynamic Page Title';
-    vm.baseTag = { name: '4.0.1' };
-    vm.headTag = { name: '2.4.9' };
+    vm.baseTag = '';
+    vm.headTag = '';
     vm.fileInfo = {};
     vm.fileTargetObj = {};
 
     vm.$onInit = $onInit;
 
+    vm.haveFileInfo = false;
+    vm.showListFilesButton = false;
+
     vm.compareBetweenTags = compareBetweenTags;
     vm.compareFileBetweenTags = compareFileBetweenTags;
-    vm.haveFileInfo = haveFileInfo;
+    vm.determineShowListFilesButton = determineShowListFilesButton;
     vm.parseAndSetRepoPath = parseAndSetRepoPath;
     vm.setAvailableTags = setAvailableTags;
 
     function $onInit() {
-      githubApi.enableMocks();
-
       vm.repoUrl = 'https://github.com/angular/angular';
 
       parseAndSetRepoPath();
@@ -50,14 +51,10 @@
 
     function compareFileBetweenTags() {
       githubApi.compareCommits(vm.baseTag.name, vm.headTag.name).then(function(response) {
+        vm.haveFileInfo = true;
         vm.comparisonData = response.data;
         vm.fileInfo = _parseComparisonForFileInfo(vm.fileTargetObj.filename);
       });
-    }
-
-    function haveFileInfo() {
-      console.log(vm.fileInfo);
-      return !angular.equals(vm.fileInfo, {});
     }
 
     function parseAndSetRepoPath() {
@@ -69,6 +66,14 @@
       githubApi.getTags().then(function(response) {
         vm.availableTags = response.data;
       });
+    }
+
+    function determineShowListFilesButton() {
+      console.log(vm.repoUrl);
+      console.log(vm.baseTag);
+      console.log(vm.headTag);
+
+      vm.showListFilesButton = vm.repoUrl && (vm.baseTag !== '') && (vm.headTag !== '');
     }
 
     function _parseComparisonForFileInfo(filename) {

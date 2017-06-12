@@ -4,4 +4,23 @@
   margin-top: 20px;
   margin-left: 20px; }
 
+github-comparer .tag-selections-container {
+  margin-bottom: 18px; }
+  github-comparer .tag-selections-container div.selection-spacer {
+    width: 20px; }
+  github-comparer .tag-selections-container md-input-container.tag-selection {
+    margin-bottom: 10px; }
+  github-comparer .tag-selections-container button.md-button.tag-type-label {
+    border-radius: 6px;
+    font-size: 10px;
+    line-height: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 20px;
+    margin-top: 0;
+    max-height: 20px;
+    max-width: 40px;
+    min-height: 20px;
+    min-width: 40px; }
+
 /*# sourceMappingURL=main.css.map */

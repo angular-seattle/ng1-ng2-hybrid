@@ -2,16 +2,16 @@ module.exports = function(grunt) {
   'use strict';
 
   require('load-grunt-tasks')(grunt);
-  
+
   grunt.initConfig({
     wiredep: {
       task: {
         src: ['src/client/index.html'],
         // aboslute paths instead of relative paths http://stackoverflow.com/a/26024882/679716
-        ignorePath: /^(\/|\.+(?!\/[^\.]))+\.+/ 
+        ignorePath: /^(\/|\.+(?!\/[^\.]))+\.+/
       }
     },
-    
+
     angularFileLoader: {
       options: {
         scripts: ['src/client/app/**/*.js'],
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         src: ['src/client/index.html']
       }
     },
-    
+
     nodemon: {
       dev: {
         script: 'src/server/app.js'
@@ -33,9 +33,9 @@ module.exports = function(grunt) {
         sourceMap: true
       },
       dist: {
-        files: {
-          'src/client/styles/main.css': 'src/client/scss/main.scss'
-        }
+        files: [{
+          'src/client/styles/main.css': 'src/client/scss/style.scss'
+        }]
       }
     },
 
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 
   });
 
-  // concurrent tasks most go last   
+  // concurrent tasks most go last
   grunt.registerTask('default', [
     'wiredep',
     'angularFileLoader',

@@ -1,2 +1,30 @@
-angular-seed-github {
+github-comparer {
+  .tag-selections-container {
+    margin-bottom: 18px;
+
+    div.selection-spacer {
+      width: 20px;
+    }
+
+    md-input-container.tag-selection {
+      margin-bottom: 10px;
+    }
+
+    button.md-button.tag-type-label {
+      $buttonHeight: 20px;
+      $buttonWidth: 40px;
+
+      border-radius: 6px;
+      font-size: 10px;
+      line-height: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 20px;
+      margin-top: 0;
+      max-height: $buttonHeight;
+      max-width: $buttonWidth;
+      min-height: $buttonHeight;
+      min-width: $buttonWidth;
+    }
+  }
 }

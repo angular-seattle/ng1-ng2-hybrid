@@ -13,7 +13,7 @@
     return `
         <angular-seed-header></angular-seed-header>
         <div class="main-container">
-          <angular-seed-github></angular-seed-github>
+          <github-comparer></github-comparer>
         </div>
     `;
   }

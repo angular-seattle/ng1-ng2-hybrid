@@ -5,26 +5,39 @@
             <input class="github-repo-url" ng-model="vm.repoUrl" ng-change="vm.parseAndSetRepoPath()">
         </md-input-container>
 
-        <div layout="row">
-            <md-input-container>
-                <md-select ng-model="vm.baseTag" placeholder="Select BASE tag">
-                    <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
-                </md-select>
-            </md-input-container>
+        <div layout="row" class="tag-selections-container">
+            <div layout="column" layout-align="start center">
+                <md-input-container class="tag-selection">
+                    <md-select ng-model="vm.baseTag" md-on-close="vm.determineShowListFilesButton()" placeholder="Select BASE tag">
+                        <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button ng-if="vm.baseTag" ng-disabled="true" class="md-raised md-primary tag-type-label">
+                    BASE
+                </md-button>
+            </div>
 
-            <md-input-container>
-                <md-select ng-model="vm.headTag" placeholder="Select HEAD tag">
-                    <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
-                </md-select>
-            </md-input-container>
+            <div class="selection-spacer"></div>
+
+            <div layout="column" layout-align="start center">
+                <md-input-container class="tag-selection">
+                    <md-select ng-model="vm.headTag" md-on-close="vm.determineShowListFilesButton()" placeholder="Select HEAD tag">
+                        <md-option ng-value="opt" ng-repeat="opt in vm.availableTags">{{ opt.name }}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button ng-if="vm.headTag" ng-disabled="true" class="md-raised md-primary tag-type-label">
+                    HEAD
+                </md-button>
+            </div>
         </div>
 
         <md-input-container>
             <md-button
-                ng-if="vm.repoUrl && vm.baseTag && vm.headTag"
+                ng-if="vm.showListFilesButton"
                 ng-click="vm.compareBetweenTags()"
                 class="md-raised"
                 >
+                <md-tooltip md-direction="bottom">No matter what you select we are only mocking 4.0.1...4.0.2</md-tooltip>
                 LIST FILES
             </md-button>
         </md-input-container>
@@ -50,7 +63,7 @@
         </md-input-container>
 
         <github-file-info-card
-            ing-if="vm.haveFileInfo()"
+            ng-if="vm.haveFileInfo"
             file-info="vm.fileInfo"
             >
         </github-file-info-card>
