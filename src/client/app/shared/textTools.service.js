@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   angular.module('angularSeed.shared')
     .factory('textTools', TextTools);
 
@@ -26,4 +28,5 @@
     }
 
   }
+
 })();

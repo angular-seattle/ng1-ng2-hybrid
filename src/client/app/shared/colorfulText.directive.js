@@ -4,10 +4,11 @@
 
   ColorfulTextDirective.$inject = [
     '$compile',
-    '$parse'
+    '$parse',
+    'randomNumbers'
   ];
 
-  function ColorfulTextDirective($compile, $parse) {
+  function ColorfulTextDirective($compile, $parse, randomNumbers) {
     return {
       restrict: 'A',
       link: postLink
@@ -31,51 +32,44 @@
 
           var newValue = $parse(interpolated)($scope);
 
-          compileTemplate($compile, element, $scope, colorizeContent(newValue));
+          compileTemplate(element, $scope, colorizeContent(newValue));
         });
 
 
       } else {
 
         element.ready(function() {
-          compileTemplate($compile, element, $scope, colorizeContent(element.html()));
+          compileTemplate(element, $scope, colorizeContent(element.html()));
         });
       }
     }
+
+    function compileTemplate(element, $scope, template) {
+      element.html(template);
+
+      $compile(element.contents())($scope);
+    }
+
+    function colorizeContent(str) {
+      contentChars = str.split('');
+      template = '';
+
+      angular.forEach(contentChars, function(char) {
+        var r = randomPixel();
+        var g = randomPixel();
+        var b = randomPixel();
+
+        template += '<span style="' +
+          'color: rgb(' + [r,g,b].join(',') + ');' +
+          '">' + char + '</span>';
+      });
+
+      return template;
+    }
+
+    function randomPixel() {
+      return randomNumbers.randomInt(0,255);
+    }
   }
-
-  function compileTemplate($compile, element, $scope, template) {
-    element.html(template);
-
-    $compile(element.contents())($scope);
-  }
-
-  function colorizeContent(str) {
-    contentChars = str.split('');
-    template = '';
-
-    angular.forEach(contentChars, function(char) {
-      var r = randomPixel();
-      var g = randomPixel();
-      var b = randomPixel();
-
-      template += '<span style="' +
-        'color: rgb(' + [r,g,b].join(',') + ');' +
-        '">' + char + '</span>';
-    });
-
-    return template;
-  }
-
-
-  function randomPixel() {
-    return randomInt(0,255);
-  }
-
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-
 
 })();

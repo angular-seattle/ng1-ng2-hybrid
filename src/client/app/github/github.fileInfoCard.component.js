@@ -22,8 +22,6 @@
     }
 
     function $onChanges(changesObj) {
-     console.log(changesObj);
-
      if (changesObj.fileInfo) {
         vm.fileInfo = angular.copy(changesObj.fileInfo.currentValue);
       }

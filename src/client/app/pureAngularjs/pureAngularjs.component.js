@@ -11,12 +11,12 @@
 
   PureAngularjsController.$inject = [
     '$interval',
+    'randomNumbers',
     'textTools'
   ];
 
-  function PureAngularjsController($interval, textTools) {
+  function PureAngularjsController($interval, randomNumbers, textTools) {
     var vm = this;
-    var i = 0; // for showing two-way binding working
     var _interval;
 
     // lifecyle
@@ -32,12 +32,12 @@
 
     function $onInit() {
       _interval = $interval(function() {
-        vm.angularjsTwoWay += String.fromCharCode(i++ + 97);
-      }, 1000, 5);
+        vm.angularjsTwoWay += String.fromCharCode(randomNumbers.randomInt('a'.charCodeAt(0), 'z'.charCodeAt(0)));
+      }, 500);
     }
 
     function $onDestroy() {
-      _interval();
+      $interval.cancel();
     }
   }
 
