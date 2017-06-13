@@ -7,7 +7,8 @@
       'angularSeed.core',
       'angularSeed.github',
       'angularSeed.layout',
-      'angularSeed.pureAngularjs'
+      'angularSeed.pureAngularjs',
+      'angularSeed.shared'
     ]
   );
 
