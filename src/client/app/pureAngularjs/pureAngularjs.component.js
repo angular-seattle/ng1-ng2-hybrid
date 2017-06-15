@@ -33,7 +33,7 @@
     function $onInit() {
       _interval = $interval(function() {
         vm.angularjsTwoWay += String.fromCharCode(randomNumbers.randomInt('a'.charCodeAt(0), 'z'.charCodeAt(0)));
-      }, 500);
+      }, 1000);
     }
 
     function $onDestroy() {
