@@ -34,7 +34,7 @@
 <!-- endbuild -->
 </head>
 
-<body ng-app="angularSeed" ng-strict-di>
+<body>
     <div class="angular-seed-main" ui-view="angularSeedMain"></div>
 
 <!-- build:js(.) scripts/vendor.js -->
@@ -73,7 +73,11 @@
 <script src="src/client/app/app.config.js" type="text/javascript"></script>
 <!-- endangular -->
 <!-- endbuild -->
-
+<script type="text/javascript" src="dist/ng/inline.bundle.js"></script>
+<script type="text/javascript" src="dist/ng/polyfills.bundle.js"></script>
+<script type="text/javascript" src="dist/ng/styles.bundle.js"></script>
+<script type="text/javascript" src="dist/ng/vendor.bundle.js"></script>
+<script type="text/javascript" src="dist/ng/main.bundle.js"></script>
 </body>
 
 </html>
