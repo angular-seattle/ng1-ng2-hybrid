@@ -255,7 +255,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'wiredep',
     'angularFileLoader',
-    'injector:angular_dev',
     'sass',
     'concurrent:default'
   ]);
