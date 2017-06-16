@@ -98,7 +98,7 @@ module.exports = function(grunt) {
         beautify: false,
         mangle: true,
         compress: true,
-        //sourceMap: true
+        sourceMap: true
       },
       generated: {
         files: [
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
     filerev: {
       dist: {
         src: [
-          'dist/scripts{,*/}*.js',
+          'dist/scripts/{,*/}*.js',
           'dist/styles/{,*/}*.css'
         ]
       }
@@ -213,6 +213,6 @@ module.exports = function(grunt) {
 
     var file = searchPath + 'dist/' + block.dest;
 
-    return summary[file].replace(block.searchPath[0], '');
+    return summary[file].replace(searchPath, '');
   }
 };
