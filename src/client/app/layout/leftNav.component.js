@@ -6,16 +6,8 @@
     .component('angularSeedLeftNav', {
       controller: LeftNavController,
       controllerAs: 'vm',
-      template: getTemplate()
+      templateUrl: '/app/layout/leftNav.component.html'
     });
-
-  function getTemplate() {
-    return `
-      <md-button aria-label="menu" class="md-fab md-primary" ng-click="vm.onOpenMenu()">
-        <md-icon md-font-library="material-icons">reorder</md-icon>
-      </md-button>
-    `;
-  }
 
   LeftNavController.$inject = [
     '$mdSidenav'

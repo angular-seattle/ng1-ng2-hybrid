@@ -4,6 +4,121 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
+    clean: {
+      dist: [
+        './.tmp',
+        './dist'
+      ]
+    },
+    ngtemplates: {
+      app: {
+        src: 'src/client/app/**/*.html',
+        dest: 'src/client/app/app.templates.js',
+        options: {
+          module: 'angularSeed',
+          prefix: '',
+          htmlmin: {
+            collapseWhitespace: true,
+            conservativeCollapse: true,
+            removeComments: true,
+            collapseBooleanAttributes: true,
+            removeCommentsFromCDATA: true,
+            removeOptionalTags: true,
+            keepClosingSlash: true,
+            minifyJS: true
+          }
+        }
+      }
+    },
+    useminPrepare: {
+      html: 'src/client/index.html',
+      options: {
+        dest: './dist',
+        staging: './.tmp',
+        flow: {
+          html: {
+            steps: {
+              js: ['concat', 'uglify'],
+              css: ['cssmin']
+            }
+          }
+        }
+      }
+    },
+    cssmin: {
+      options: {
+        sourceMap: true,
+        rebase: true
+      },
+      generated: {}
+    },
+    usemin: {
+      html: ['./dist/**/*.html'],
+      css: ['./dist/styles/**/*.css'],
+      js: ['./dist/scripts/**/*.js'],
+      options: {
+        blockReplacements: {
+          css: function(block) {
+            var file = getFile(grunt.filerev.summary, block);
+            return '<link rel="stylesheet" href="' + file + '" />';
+          },
+          js: function(block) {
+            var file = getFile(grunt.filerev.summary, block);
+            return '<script src="' + file + '"></script>';
+          }
+        }
+      }
+    },
+    concat: {
+      generated: {
+        files: [
+          {
+            dest: '.tmp/concat/js/app.js',
+            src: [
+              'src/client/app/app.module.js',
+              'src/client/app/app.config.js',
+
+              'src/client/app/**/*.module.js',
+              'src/client/app/**/*!(.modules.js'
+            ]
+          }
+        ]
+      }
+    },
+    copy: {
+      dist: {
+        files: [{
+          src: 'src/client/index.html',
+          dest: 'dist/index.html'
+        }]
+      }
+    },
+    uglify: {
+      options: {
+        beautify: false,
+        mangle: true,
+        compress: true,
+        //sourceMap: true
+      },
+      generated: {
+        files: [
+          {
+            src: [
+              './.tmp/concat/js/app.js'
+            ],
+            dest: './dist/js/app.js'
+          }
+        ]
+      }
+    },
+    filerev: {
+      dist: {
+        src: [
+          'dist/scripts{,*/}*.js',
+          'dist/styles/{,*/}*.css'
+        ]
+      }
+    },
     wiredep: {
       task: {
         src: ['src/client/index.html'],
@@ -73,4 +188,31 @@ module.exports = function(grunt) {
     'sass',
     'concurrent:default'
   ]);
+
+  grunt.registerTask('build', [
+    'clean:dist',
+    'ngtemplates',
+    'wiredep',
+    'angularFileLoader',
+    'sass',
+    'useminPrepare',
+    'concat:generated',
+    'copy:dist',
+    'cssmin:generated',
+    'uglify:generated',
+    'filerev',
+    'usemin'
+  ]);
+
+  function getFile(summary, block) {
+    var searchPath = block.searchPath[0] || '';
+
+    if (searchPath === '.') {
+      searchPath = '';
+    }
+
+    var file = searchPath + 'dist/' + block.dest;
+
+    return summary[file].replace(block.searchPath[0], '');
+  }
 };

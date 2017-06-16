@@ -53,8 +53,8 @@
     }
 
     function colorizeContent(str) {
-      contentChars = str.split('');
-      template = '';
+      var contentChars = str.split('');
+      var template = '';
 
       angular.forEach(contentChars, function(char) {
         var r = randomPixel();
