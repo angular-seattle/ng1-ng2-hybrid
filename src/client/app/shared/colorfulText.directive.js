@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   angular.module('angularSeed.shared')
     .directive('colorfulText', ColorfulTextDirective);
 

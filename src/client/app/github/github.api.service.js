@@ -39,4 +39,4 @@
       return $http.get(_apiBaseUrl + '/tags');
     }
   }
-})(this);
+})();
