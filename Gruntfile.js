@@ -7,7 +7,9 @@ module.exports = function(grunt) {
     clean: {
       dist: [
         './.tmp',
-        './dist'
+        './dist/**/*',
+        '!./dist/ng',
+        '!./dist/ng/**/*'
       ]
     },
     ngtemplates: {
@@ -119,6 +121,20 @@ module.exports = function(grunt) {
         ]
       }
     },
+    includeSource: {
+      options: {
+      },
+      dev: {
+        files: {
+          'src/client/index.html': 'src/client/index.html'
+        }
+      },
+      build: {
+        files: {
+          'dist/index.html': 'dist/index.html'
+        }
+      }
+    },
     wiredep: {
       task: {
         src: ['src/client/index.html'],
@@ -129,7 +145,9 @@ module.exports = function(grunt) {
 
     angularFileLoader: {
       options: {
-        scripts: ['src/client/app/**/*.js'],
+        scripts: [
+          'src/client/app/**/*.js'
+        ],
         relative: false
       },
       your_target: {
@@ -166,6 +184,10 @@ module.exports = function(grunt) {
       angularFileLoader: {
         files: ['src/client/app/**/*.js'],
         tasks: ['angularFileLoader']
+      },
+      includeSource: {
+        files: ['dist/ng/*.js'],
+        tasks: ['includeSource:dev']
       }
     },
 
@@ -185,6 +207,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'wiredep',
     'angularFileLoader',
+    'includeSource:dev',
     'sass',
     'concurrent:default'
   ]);
@@ -201,7 +224,8 @@ module.exports = function(grunt) {
     'cssmin:generated',
     'uglify:generated',
     'filerev',
-    'usemin'
+    'usemin',
+    'includeSource:build'
   ]);
 
   function getFile(summary, block) {
