@@ -12,6 +12,10 @@
       templateUrl: '/app/github/github.fileInfoCard.component.html'
     });
 
+  GithubFileInfoCardController.$inject = [
+    'githubApi'
+  ];
+
   function GithubFileInfoCardController(githubApi) {
     var vm = this;
 
