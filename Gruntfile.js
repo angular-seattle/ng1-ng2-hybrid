@@ -166,7 +166,23 @@ module.exports = function(grunt) {
         ]
       }
     }),
-
+    exec: {
+      ng_dev_build: {
+        command: 'ng build',
+        stdout: true,
+        stderr: false
+      },
+      ng_watch: {
+        command: 'ng build --watch',
+        stdout: true,
+        stderr: false
+      },
+      ng_build: {
+        command: 'ng build -prod',
+        stdout: true,
+        stderr: false
+      }
+    },
     wiredep: {
       task: {
         src: ['src/client/index.html'],
@@ -229,10 +245,10 @@ module.exports = function(grunt) {
       },
       default: [
         'nodemon',
-        'watch'
+        'watch',
+        'exec:ng_watch'
       ]
     }
-
   });
 
   // concurrent tasks most go last
@@ -245,6 +261,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'exec:ng_build',
     'clean:dist',
     'ngtemplates',
     'wiredep',

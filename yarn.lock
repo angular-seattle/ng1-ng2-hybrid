@@ -2232,6 +2232,10 @@ grunt-contrib-watch@1.0.0:
     lodash "^3.10.1"
     tiny-lr "^0.2.1"
 
+grunt-exec@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/grunt-exec/-/grunt-exec-2.0.0.tgz#a575a620b1da4416c292c01df564c9296b80ab23"
+
 grunt-filerev@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/grunt-filerev/-/grunt-filerev-2.3.1.tgz#2990210f0b5a9edc5e7198987fd1c029c6d5f4df"
