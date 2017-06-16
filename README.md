@@ -6,7 +6,7 @@ Here I will use what I learned and outline the steps needed to convert a sample 
 
 ## Base AngularJS application
 
-[ng1-ng2-hybrid](https://github.com/jensbodal/ng1-ng2-hybrid/tree/angularjs-base) (linked to angular.js base tag) is a simple angular.js application with two views.  One makes a call to a local nodejs server which mocks a response from GitHub's api (using a mocked version to facilitate ease in testing and to avoid getting rate limited).  The other view is just some silliness with showing a directive which randomly assigns a color to each letter in a string and utilizes an attribute directive as well as two services.  
+[ng1-ng2-hybrid](https://github.com/jensbodal/ng1-ng2-hybrid/tree/angularjs-base) (linked to angular.js base tag) is a simple angular.js application with two views.  One makes a call to a local nodejs server which mocks a response from GitHub's api (using a mocked version to facilitate ease in testing and to avoid getting rate limited).  The other view is just some silliness with showing a directive which randomly assigns a color to each letter in a string and utilizes an attribute directive as well as two services.
 
 The code tries to follow [John Papa's AngularJS style guide](https://github.com/johnpapa/angular-styleguide/tree/master/a1), and now that his Angular guide [is the official Angular Style guide](https://github.com/johnpapa/angular-styleguide/tree/master/a2#angular-team-endorsed), we will use similar best practices when we start writing that code.
 
@@ -34,7 +34,7 @@ To build and run the AngularJS app simply run `grunt`.  It's recommended to keep
 Ok so we want to introduce Angular, where do we start? First off it's good to read through the official [Upgrading from AngularJS](https://angular.io/guide/upgrade) guide to become familiar with the process and the terminology used.  Some things to consider before embarking on this endeavor for your own applications:
 
 * You might come across undocumented bugs or other issues that may or may not be fixable without a new version of Angular
-* You might experience performance issues on hybrid pages that use 3rd party libraries 
+* You might experience performance issues on hybrid pages that use 3rd party libraries
 * You will need to find a new library for reusable components or create your own if your preferred one is not yet stable/available
 * Many of the versions for dependencies will likely change after this writeup, some might be incompatible with the upgrade process regardless of *only* being minor/patch version bumps
 
@@ -62,7 +62,7 @@ mv ngExample/src src/client
 mv src/client/src src/client/ngsrc
 ```
 
-Next we need to install anything that's in the new Angular app's package.json file into ours. 
+Next we need to install anything that's in the new Angular app's package.json file into ours.
 
 I highly recommend going through and fixing the package versions of the installed dependencies (e.g. instead of `"^2.3.4"` you use `"2.3.4"` (this is not necessary when using `yarn add -E` and a fixed version).  While semantic versioning should work in practice, you are placing all of your trust in the maintainer of that library to not introduce minor or patch bumps which don't break your hybrid app. You can install something like `node-check-update` to periodically check for new versions of installed packages and then update them after confirming nothing breaks.  If you install the exact package versions as listed below, this example should work just fine.  It will likely also work if you upgrade some of the packages, but upgrade each one individually so you know if a specific one breaks your app.
 
@@ -70,43 +70,43 @@ Here's what the Angular package.json looks like:
 
 ```
 "dependencies": {
-	"@angular/animations": "^4.0.0",
-	"@angular/common": "^4.0.0",
-	"@angular/compiler": "^4.0.0",
-	"@angular/core": "^4.0.0",
-	"@angular/forms": "^4.0.0",
-	"@angular/http": "^4.0.0",
-	"@angular/platform-browser": "^4.0.0",
-	"@angular/platform-browser-dynamic": "^4.0.0",
-	"@angular/router": "^4.0.0",
-	"core-js": "^2.4.1",
-	"rxjs": "^5.1.0",
-	"zone.js": "^0.8.4"
+    "@angular/animations": "^4.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
 },
 "devDependencies": {
-	"@angular/cli": "1.1.0",
-	"@angular/compiler-cli": "^4.0.0",
-	"@angular/language-service": "^4.0.0",
-	"@types/jasmine": "2.5.45",
-	"@types/node": "~6.0.60",
-	"codelyzer": "~3.0.1",
-	"jasmine-core": "~2.6.2",
-	"jasmine-spec-reporter": "~4.1.0",
-	"karma": "~1.7.0",
-	"karma-chrome-launcher": "~2.1.1",
-	"karma-cli": "~1.0.1",
-	"karma-jasmine": "~1.1.0",
-	"karma-jasmine-html-reporter": "^0.2.2",
-	"karma-coverage-istanbul-reporter": "^1.2.1",
-	"protractor": "~5.1.2",
-	"ts-node": "~3.0.4",
-	"tslint": "~5.3.2",
-	"typescript": "~2.3.3"
+    "@angular/cli": "1.1.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/language-service": "^4.0.0",
+    "@types/jasmine": "2.5.45",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~3.0.1",
+    "jasmine-core": "~2.6.2",
+    "jasmine-spec-reporter": "~4.1.0",
+    "karma": "~1.7.0",
+    "karma-chrome-launcher": "~2.1.1",
+    "karma-cli": "~1.0.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "protractor": "~5.1.2",
+    "ts-node": "~3.0.4",
+    "tslint": "~5.3.2",
+    "typescript": "~2.3.3"
 }
 
 ```
 
-Below are the fixed installations for the above files as of this writing.  You'll likely have versions of the test packages already installed, I'd recommend holding off on getting testing working until you've successfully bootstrapped your hybrid application.  
+Below are the fixed installations for the above files as of this writing.  You'll likely have versions of the test packages already installed, I'd recommend holding off on getting testing working until you've successfully bootstrapped your hybrid application.
 
 ```
 export angularversion=4.2.2
@@ -135,7 +135,7 @@ yarn add -ED @angular/language-service@$angularVersion
 yarn add -ED @types/node@6.0.78
 yarn add -ED codelyzer@3.0.1
 yarn add -ED ts-node@3.0.6
-yarn add -ED tslint@5.4.3				
+yarn add -ED tslint@5.4.3
 
 
 # packages that will likely conflict with existing apps
@@ -168,7 +168,7 @@ I'll use vim:
 "root": "src/client/ngsrc"
 "outDir": "dist/ng",
 "lint": [
-	{
+    {
       "project": "src/client/ngsrc/tsconfig.app.json"
     },
     {
@@ -184,7 +184,7 @@ I'll use vim:
 
 **src/client/ngsrc/tsconfig.app.json**
 
-**NOTE:** As of `@angular/cli@1.1.0` the new `paths` key needs to be added to `compilerOptions`.  Otherwise the only change is to update the relative path for `extends`. 
+**NOTE:** As of `@angular/cli@1.1.0` the new `paths` key needs to be added to `compilerOptions`.  Otherwise the only change is to update the relative path for `extends`.
 
 ```
 {
@@ -197,9 +197,11 @@ I'll use vim:
       ]
     }
   },
-  ... 
+  ...
 }
 ```
+
+[You can see a summary of the above changes here](https://github.com/jensbodal/ng1-ng2-hybrid/commit/acaa2672571dd05eb725bc266bea472274271a3e)
 
 You should now be able to run `ng build` and see that the example app builds with our new structure.  If following along with the repo, add a new static route in `src/client/server/app.js` for: `app.use(express.static('./dist/ng'));`, you can now load the example app at `127.0.0.1:6677/dist/ng`.  You won't need this route for our purposes so feel free to remove it after testing.
 
@@ -209,7 +211,7 @@ Grunt should already be running in a separate shell and serving the AngularJS ap
 
 ## Step 2: Bootstrapping AngularJS from Angular
 
-Now that all the files are in place to build the Angular application, we will need to make some modifications to our original code in order to bootstrap AngularJS from the Angular app.  We will not be using the `index.html` file inside of the `ngsrc` folder, instead we will just be using the generated bundles from `dist/ng`. 
+Now that all the files are in place to build the Angular application, we will need to make some modifications to our original code in order to bootstrap AngularJS from the Angular app.  We will not be using the `index.html` file inside of the `ngsrc` folder, instead we will just be using the generated bundles from `dist/ng`.
 
 Open the `index.html` file in `dist/ng` and copy the script tags and place at the bottom of the `src/client/index.html` file then update the paths.  If using in your own app, then just make sure these are placed last and in the same order.  **Remember to update the paths to reflect dist/ng**.
 
