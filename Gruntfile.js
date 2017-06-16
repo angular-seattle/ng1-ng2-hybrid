@@ -3,6 +3,20 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
+  var angularFiles = [
+    'dist/ng/inline.bundle.js',
+    'dist/ng/polyfills.bundle.js',
+    'dist/ng/styles.bundle.js',
+    'dist/ng/vendor.bundle.js',
+    'dist/ng/main.bundle.js'
+  ];
+
+  var angularDevFiles = angularFiles;
+
+  var angularBuildFiles = angularFiles.map(function(path) {
+    return path.replace(/\.bundle\.js/, '.*.bundle.js');
+  });
+
   grunt.initConfig({
     clean: {
       dist: [
@@ -121,20 +135,38 @@ module.exports = function(grunt) {
         ]
       }
     },
-    includeSource: {
-      options: {
+
+    injector: ({
+      angular_dev: {
+        options: {
+          template: 'src/client/index.html',
+          starttag: '<!-- injector:angular -->',
+          endtag: '<!-- endinjector -->',
+          relative: false
+        },
+        files: [
+          {
+            src: angularDevFiles,
+            dest: 'src/client/index.html'
+          }
+        ]
       },
-      dev: {
-        files: {
-          'src/client/index.html': 'src/client/index.html'
-        }
-      },
-      build: {
-        files: {
-          'dist/index.html': 'dist/index.html'
-        }
+      angular_build: {
+        options: {
+          template: 'src/client/index.html',
+          starttag: '<!-- injector:angular -->',
+          endtag: '<!-- endinjector -->',
+          relative: false
+        },
+        files: [
+          {
+            src: angularBuildFiles,
+            dest: 'dist/index.html'
+          }
+        ]
       }
-    },
+    }),
+
     wiredep: {
       task: {
         src: ['src/client/index.html'],
@@ -185,9 +217,9 @@ module.exports = function(grunt) {
         files: ['src/client/app/**/*.js'],
         tasks: ['angularFileLoader']
       },
-      includeSource: {
+      injector_angular_dev: {
         files: ['dist/ng/*.js'],
-        tasks: ['includeSource:dev']
+        tasks: ['injector:angular_dev']
       }
     },
 
@@ -207,7 +239,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'wiredep',
     'angularFileLoader',
-    'includeSource:dev',
+    'injector:angular_dev',
     'sass',
     'concurrent:default'
   ]);
@@ -225,7 +257,7 @@ module.exports = function(grunt) {
     'uglify:generated',
     'filerev',
     'usemin',
-    'includeSource:build'
+    'injector:angular_build'
   ]);
 
   function getFile(summary, block) {

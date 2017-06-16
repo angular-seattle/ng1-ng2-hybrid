@@ -1795,12 +1795,6 @@ extend@3, extend@^3.0.0, extend@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.0.tgz#5a474353b9f3353ddd8176dfd37b91c83a46f1d4"
 
-extendr@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/extendr/-/extendr-2.1.0.tgz#301aa0bbea565f4d2dc8f570f2a22611a8527b56"
-  dependencies:
-    typechecker "~2.0.1"
-
 external-editor@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-2.0.4.tgz#1ed9199da9cbfe2ef2f7a31b2fde8b0d12368972"
@@ -2246,12 +2240,12 @@ grunt-filerev@2.3.1:
     convert-source-map "^1.0.0"
     each-async "^0.1.3"
 
-grunt-include-source@1.1.0:
+grunt-injector@1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/grunt-include-source/-/grunt-include-source-1.1.0.tgz#91c09cf6e8d2254039a46d48d3caa35477879855"
+  resolved "https://registry.yarnpkg.com/grunt-injector/-/grunt-injector-1.1.0.tgz#5a61113dc879393d7471787471c6e99858f85d1d"
   dependencies:
-    extendr "^2.1.0"
-    grunt ">=0.4.5"
+    lodash "~4.15.0"
+    wiredep "~4.0.0"
 
 grunt-known-options@~1.1.0:
   version "1.1.0"
@@ -2315,7 +2309,7 @@ grunt-wiredep@3.0.1:
   dependencies:
     wiredep "^4.0.0"
 
-grunt@1.0.1, grunt@>=0.4.5:
+grunt@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/grunt/-/grunt-1.0.1.tgz#e8778764e944b18f32bb0f10b9078475c9dfb56b"
   dependencies:
@@ -3357,6 +3351,10 @@ lodash@^3.10.1, lodash@^3.6.0, lodash@^3.8.0, lodash@~3.10.1:
 lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+lodash@~4.15.0:
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.15.0.tgz#3162391d8f0140aa22cf8f6b3c34d6b7f63d3aa9"
 
 lodash@~4.16.4:
   version "4.16.6"
@@ -5677,10 +5675,6 @@ type-is@~1.6.10, type-is@~1.6.13, type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.15"
 
-typechecker@~2.0.1:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/typechecker/-/typechecker-2.0.8.tgz#e83da84bb64c584ccb345838576c40b0337db82e"
-
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
@@ -6073,7 +6067,7 @@ wiredep-cli@^0.1.0:
     minimist "^1.1.0"
     wiredep "*"
 
-wiredep@*, wiredep@^4.0.0:
+wiredep@*, wiredep@^4.0.0, wiredep@~4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/wiredep/-/wiredep-4.0.0.tgz#ee9548a9504dfe7e85401a435dbed2c9b4ea2e44"
   dependencies:
