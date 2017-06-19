@@ -3,11 +3,27 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
+  var angularFiles = [
+    'dist/ng/inline.bundle.js',
+    'dist/ng/polyfills.bundle.js',
+    'dist/ng/styles.bundle.js',
+    'dist/ng/vendor.bundle.js',
+    'dist/ng/main.bundle.js'
+  ];
+
+  var angularDevFiles = angularFiles;
+
+  var angularBuildFiles = angularFiles.map(function(path) {
+    return path.replace(/\.bundle\.js/, '.*.bundle.js');
+  });
+
   grunt.initConfig({
     clean: {
       dist: [
         './.tmp',
-        './dist'
+        './dist/**/*',
+        '!./dist/ng',
+        '!./dist/ng/**/*'
       ]
     },
     ngtemplates: {
@@ -119,6 +135,54 @@ module.exports = function(grunt) {
         ]
       }
     },
+
+    injector: ({
+      angular_dev: {
+        options: {
+          template: 'src/client/index.html',
+          starttag: '<!-- injector:angular -->',
+          endtag: '<!-- endinjector -->',
+          relative: false
+        },
+        files: [
+          {
+            src: angularDevFiles,
+            dest: 'src/client/index.html'
+          }
+        ]
+      },
+      angular_build: {
+        options: {
+          template: 'src/client/index.html',
+          starttag: '<!-- injector:angular -->',
+          endtag: '<!-- endinjector -->',
+          relative: false
+        },
+        files: [
+          {
+            src: angularBuildFiles,
+            dest: 'dist/index.html'
+          }
+        ]
+      }
+    }),
+    exec: {
+      ng_dev_build: {
+        command: 'ng build',
+        stdout: true,
+        stderr: false
+      },
+      ng_watch: {
+        command: 'ng build --watch',
+        stdout: true,
+        stderr: false
+      },
+      ng_build: {
+        command: 'ng build -prod',
+        stdout: true,
+        stderr: false
+      }
+    },
     wiredep: {
       task: {
         src: ['src/client/index.html'],
@@ -129,7 +193,9 @@ module.exports = function(grunt) {
 
     angularFileLoader: {
       options: {
-        scripts: ['src/client/app/**/*.js'],
+        scripts: [
+          'src/client/app/**/*.js'
+        ],
         relative: false
       },
       your_target: {
@@ -166,6 +232,10 @@ module.exports = function(grunt) {
       angularFileLoader: {
         files: ['src/client/app/**/*.js'],
         tasks: ['angularFileLoader']
+      },
+      injector_angular_dev: {
+        files: ['dist/ng/*.js'],
+        tasks: ['injector:angular_dev']
       }
     },
 
@@ -175,10 +245,10 @@ module.exports = function(grunt) {
       },
       default: [
         'nodemon',
-        'watch'
+        'watch',
+        'exec:ng_watch'
       ]
     }
-
   });
 
   // concurrent tasks most go last
@@ -190,6 +260,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'exec:ng_build',
     'clean:dist',
     'ngtemplates',
     'wiredep',
@@ -201,7 +272,8 @@ module.exports = function(grunt) {
     'cssmin:generated',
     'uglify:generated',
     'filerev',
-    'usemin'
+    'usemin',
+    'injector:angular_build'
   ]);
 
   function getFile(summary, block) {
