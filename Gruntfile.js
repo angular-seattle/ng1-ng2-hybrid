@@ -4,17 +4,17 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   var angularFiles = [
-    'dist/ng/inline.bundle.js',
-    'dist/ng/polyfills.bundle.js',
-    'dist/ng/styles.bundle.js',
-    'dist/ng/vendor.bundle.js',
-    'dist/ng/main.bundle.js'
+    'dist/ng/dev/inline.bundle.js',
+    'dist/ng/dev/polyfills.bundle.js',
+    'dist/ng/dev/styles.bundle.js',
+    'dist/ng/dev/vendor.bundle.js',
+    'dist/ng/dev/main.bundle.js'
   ];
 
   var angularDevFiles = angularFiles;
 
   var angularBuildFiles = angularFiles.map(function(path) {
-    return path.replace(/\.bundle\.js/, '.*.bundle.js');
+    return path.replace(/\.bundle\.js/, '.*.bundle.js').replace(/\/dev\//, '/build/');
   });
 
   grunt.initConfig({
@@ -93,7 +93,6 @@ module.exports = function(grunt) {
             src: [
               'src/client/app/app.module.js',
               'src/client/app/app.config.js',
-
               'src/client/app/**/*.module.js',
               'src/client/app/**/*!(.modules.js'
             ]
@@ -168,17 +167,17 @@ module.exports = function(grunt) {
     }),
     exec: {
       ng_dev_build: {
-        command: 'ng build',
+        command: 'npm run build:dev',
         stdout: true,
         stderr: false
       },
       ng_watch: {
-        command: 'ng build --watch',
+        command: 'npm run build:watch',
         stdout: true,
         stderr: false
       },
       ng_build: {
-        command: 'ng build -prod',
+        command: 'npm run build',
         stdout: true,
         stderr: false
       }
@@ -234,7 +233,7 @@ module.exports = function(grunt) {
         tasks: ['angularFileLoader']
       },
       injector_angular_dev: {
-        files: ['dist/ng/*.js'],
+        files: ['dist/ng/dev/*.js'],
         tasks: ['injector:angular_dev']
       }
     },
