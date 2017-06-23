@@ -286,6 +286,10 @@ Assuming you have `grunt` and `ng build --watch` running (otherwise run `ng buil
 
 [Comparison from step-1 to step-2](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-1...step-2)
 
-## Step 3: Downgrading an Angular component
+## Step 3: Modifying the build process
+
+[Comparison from step-2 to step-3](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-2...step-3)
+
+## Step 4: Downgrading an Angular component
 
 

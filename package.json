@@ -11,6 +11,9 @@
     "url": "https://github.com/jensbodal/angular-seed"
   },
   "scripts": {
+    "build": "ng build -prod --output-path=dist/ng/build",
+    "build:dev": "ng build --delete-output-path=false --output-path=dist/ng/dev",
+    "build:watch": "ng build --watch --delete-output-path=false --output-path=dist/ng/dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "grunt default",
     "postinstall": "bower install"
