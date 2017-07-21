@@ -8,7 +8,8 @@
       'angularSeed.github',
       'angularSeed.layout',
       'angularSeed.pureAngularjs',
-      'angularSeed.shared'
+      'angularSeed.shared',
+      'ng.downgrades'
     ]
   );
 

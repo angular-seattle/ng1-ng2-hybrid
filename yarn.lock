@@ -159,9 +159,19 @@
     magic-string "^0.19.0"
     source-map "^0.5.6"
 
+"@types/angular@1.6.20":
+  version "1.6.20"
+  resolved "https://registry.yarnpkg.com/@types/angular/-/angular-1.6.20.tgz#6d1556494cf06683f19e36ff25028af9ef1e2d31"
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/jasmine@2.5.52":
   version "2.5.52"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.52.tgz#6ea5435d5c71562296e63ef27a4718f94f2fbb13"
+
+"@types/jquery@*":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.3.tgz#c0fa172a1d6955ebf645d345fbf6dbf492d507ef"
 
 "@types/node@6.0.78", "@types/node@^6.0.46":
   version "6.0.78"
