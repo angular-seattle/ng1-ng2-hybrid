@@ -5,6 +5,7 @@ import { downgradeInjectable, UpgradeComponent, UpgradeModule } from '@angular/u
 import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
 
 // our services
+/* empty */
 
 declare var angular: angular.IAngularStatic;
 
