@@ -301,4 +301,5 @@ building the Angular application along side AngularJS using grunt. The primary c
 
 ## Step 4: Downgrading an Angular component
 
+[Comparison from step-3 to step-4](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4)
 
