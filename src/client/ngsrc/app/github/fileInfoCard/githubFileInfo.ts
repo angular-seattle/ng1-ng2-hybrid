@@ -11,7 +11,6 @@ export class GithubFileInfo {
   public patch: string;
 
   constructor(obj: any) {
-    // object destructuring
     this.sha = obj.sha;
     this.filename = obj.filename;
     this.status = obj.status;
