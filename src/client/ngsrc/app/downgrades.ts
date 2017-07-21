@@ -15,6 +15,7 @@ angular.module('ng.downgrades', [])
     downgradeComponent({
       component: FileInfoCardComponent,
       inputs: [
+        'fileInfo'
       ],
     }) as angular.IDirectiveFactory
   )

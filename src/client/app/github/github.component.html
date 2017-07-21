@@ -62,14 +62,12 @@
             </md-button>
         </md-input-container>
 
-        <aseed-file-info-card
-            ng-if="vm.haveFileInfo"
-            [file-info]="vm.fileInfo"
-            >
-        </aseed-file-info-card>
+        <md-card>
+            <aseed-file-info-card
+                ng-if="vm.haveFileInfo"
+                [file-info]="vm.fileInfo"
+                >
+            </aseed-file-info-card>
+        </md-card>
     </div>
 </md-content>
-
-<div>BEFORE</div>
-        <aseed-file-info-card></aseed-file-info-card>
-        <div>AFTER</div>
