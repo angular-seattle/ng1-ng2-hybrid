@@ -5,7 +5,7 @@ import { UpgradeModule } from '@angular/upgrade/static';
 import { AppComponent } from './app.component';
 
 // components/services that are being downgraded need to be added to our main app module's entryComponents/providers
-// their respective modules added to our declarations
+// their respective modules added to our imports
 import { GithubModule } from './github/github.module';
 import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
 
