@@ -1,5 +1,8 @@
 # UpgradeModule with Angular/AngularJS
 
+***Note:*** *I had to retroactively update the `bower.json` file to include fixed versions for `angular-animate`, `angular-aria`, and
+`angular-messages` due to an issue with some updated packages, so they appear as a part of every step comparison :(*
+
 Back in April we made a decision to convert our AngularJS application to a hybrid Angular/AngularJS application.  We had a feeling that we wanted to move towards the newer framework and due to the development of a new shared component the opportunity arose to do so.
 
 Here I will use what I learned and outline the steps needed to convert a sample application from Angular to AngularJS including the steps in between.
@@ -28,6 +31,8 @@ To build and run the AngularJS app simply run `grunt`.  It's recommended to keep
 
 
 ## Step 1: Adding Angular
+
+[Comparison from step-0 to step-1](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-0...step-1)
 
 *You can checkout the repo at tag [`step-1`](https://github.com/jensbodal/ng1-ng2-hybrid/tree/step-1) to see the end result of what is detailed here*
 
@@ -207,9 +212,10 @@ You should now be able to run `ng build` and see that the example app builds wit
 
 Grunt should already be running in a separate shell and serving the AngularJS app.  Open another shell, and leave `ng build --watch` running so that changes to the Angular files will be watched and the builds updated as they change.
 
-[Comparison from step-0 to step-1](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-0...step-1)
 
 ## Step 2: Bootstrapping AngularJS from Angular
+
+[Comparison from step-1 to step-2](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-1...step-2)
 
 Now that all the files are in place to build the Angular application, we will need to make some modifications to our original code in order to bootstrap AngularJS from the Angular app.  We will not be using the `index.html` file inside of the `ngsrc` folder, instead we will just be using the generated bundles from `dist/ng`.
 
@@ -284,9 +290,10 @@ export class AppModule {
 
 Assuming you have `grunt` and `ng build --watch` running (otherwise run `ng build`, and then `grunt`), you should be able to now see that your app is being bootstrapped from Angular.  Congratulations, you now have a hybrid Angular/AngularJS app!
 
-[Comparison from step-1 to step-2](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-1...step-2)
 
 ## Step 3: Modifying the build process
+
+[Comparison from step-2 to step-3](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-2...step-3)
 
 It will probably be most helpful to just check out the comparison between steps 2 and 3 to see the changes that were added to support
 building the Angular application along side AngularJS using grunt. The primary changes being made and how the process works:
@@ -297,9 +304,156 @@ building the Angular application along side AngularJS using grunt. The primary c
 * all used `ng build` commands are wrapped into npm script commands within `package.json`
 * the `ng build --watch` wrapped command is added to our default concurrent tasks
 
-[Comparison from step-2 to step-3](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-2...step-3)
 
-## Step 4: Downgrading an Angular component
+
+## Step 4: Downgrading an Angular component and service
 
 [Comparison from step-3 to step-4](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4)
+
+Whew.  Our app is now running Angular/AngularJS side-by-side and it's integrated into our build process, so let's write some Angular code!
+
+
+For our first Angular component I will rewrite the `src/client/app/github/github.fileInfoCard.component.js` in Angular, downgrade it, then simply use it in AngularJS.
+
+***Note:*** *You might notice that the [`github.fileInfoCard.component`](https://github.com/jensbodal/ng1-ng2-hybrid/blob/step-3/src/client/app/github/github.fileInfoCard.component.js#L16) is incorrectly dependent on the `githubApi` service. Step-4 removes this unused dependency.*
+
+For the first component that's downgraded there is a bit of scaffolding that needs to be done, subsequent downgraded components will be significantly easier to downgrade.
+
+### Changes
+
+There are a lot of changes here, it's best to view the [comparison from step-3 to step-4](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4) to see all of the changes, however they will be summarized below, with some steps expanded on.
+
+* **.angular-cli.json** updated to use Sass to conform with what is setup on the AngularJS side, also updated our app prefix to `aseed`
+* **package.json** `@types/angular` added (explained in the downgrade section)
+* **app.module.js** AngularJS app module updated to include our Angular downgrade module (explained in downgrade section)
+* **github.component.html** our `aseed-file-info-card` component we are creating is now placed in an Angular Material `md-card` as we have not implemented `@angular/material2` or another replacement
+* **github.fileInfoCard.component.html** removed as no longer needed
+* **github.fileInfoCard.component.js** removed as no longer needed
+* **index.html** removed `github.fileInfoCard.component.js` since we are no longer using it
+* **app.module.ts** updated to include our downgraded component (explained in downgrade section)
+* **downgrades.ts** new file to specify which of our Angular components and services will be downgraded
+* **fileInfoCard.component.\*** newly rewritten component (explained in rewrite section)
+* **githubFileInfo.ts** new class for specifying the layout of our githubFileInfo which is used in the display
+* **github.module.ts** declares our rewritten component, imports pipes used and the CommonModule (which includes `*ngFor` among other things)
+* **object.pipe.ts** `*ngFor` doesn't allow iterating through objects like `ng-repeat` does, so we create our own pipe to recreate this functionality
+* **pipes.module.ts** pipes need to be declared and exported from a module in order to be used
+* **tsconfig.app.json** updated to include our `angular` types (see `@types/angular` section)
+* **src/client/scss/style.scss** removed `githubFileInfoCard` styles used in AngularJS
+* **tslint.json** updated our directive and component selector to `aseed` to be enforced in linting
+
+### @types/angular
+
+We are going to use the `angular` object in various places (namely `downgrades.ts` here) when working with the `UpgradeModule`. In order to make our linting and build process happy, we need to add the `@angular/types` module and include the type in our `tsconfig.app.json`.
+
+```
+yarn add -ED @types/angular
+```
+
+**tsconfig.app.json**
+
+```
+  "compilerOptions": {
+    "types": ["angular"],
+```
+
+
+
+### Rewriting the githubFileInfo Component
+
+Our AngularJS application relies on `@angular/material` for display components, so to make things easy for this step we are simply going to wrap the new fileInfo component in an `md-card` component rather than have it do that itself (as it was done [previously](https://github.com/jensbodal/ng1-ng2-hybrid/blob/step-3/src/client/app/github/github.fileInfoCard.component.html)).
+
+**Note:** *While I'll include the process of rewriting the component in this section, the recommended steps for your first downgraded component are to just create a basic working component, downgrade it, then show that it works.  [Here you can see the commit where I did this](https://github.com/jensbodal/ng1-ng2-hybrid/commit/bdbecdfd5d56a45a0e4992c3d5805d06ae2b92fa).*
+
+**@TODO FINISH THIS SECTION**
+
+
+### Downgrade Module
+
+In the `ngsrc/app` folder create a file called `downgrades.ts`. This file will serve as the soul source of all of our downgraded components and services which will be used in AngularJS. Multiple downgraded directives and services can simply be chained together and all of them will be included and accessible from AngularJS in the `ng.downgrades` module.
+
+#### [downgrades.ts](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4#diff-9b8bacd63e0cf6ee57e7f115fd8a5387)
+
+```
+import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
+
+// our components
+import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
+
+// our services
+/* empty */
+
+declare var angular: angular.IAngularStatic;
+
+// this is the module that will need to be included in our AngularJS application
+angular.module('ng.downgrades', [])
+  .directive(
+    'aseedFileInfoCard',
+    downgradeComponent({
+      component: FileInfoCardComponent,
+      inputs: [
+        'fileInfo'
+      ],
+    }) as angular.IDirectiveFactory
+  )
+;
+```
+
+
+#### [app.module.ts](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4#diff-dbb539c917ba74ef6c5bed31a684680d)
+
+In our app module we now need to include `downgrades.ts` which specifies an AngularJS module `ng.downgrades`.  We then include this module in the bootstrap portion of the app module.
+
+```
+ngDoBootstrap() {
+	this.upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
+}
+```
+
+*app module changes highlighted*
+
+Final `app.module.ts`
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { UpgradeModule } from '@angular/upgrade/static';
+
+import { AppComponent } from './app.component';
+
+// components/services that are being downgraded need to be added to our main app module's entryComponents/providers
+// their respective modules added to our imports
+import { GithubModule } from './github/github.module';
+import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
+
+// import all of our downgraded components and services
+import './downgrades';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    GithubModule,
+    UpgradeModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  entryComponents: [
+    FileInfoCardComponent
+  ],
+  providers: [
+    { provide: 'githubApi', useExisting: 'githubApiProvider' }
+  ],
+  bootstrap: [
+  ]
+})
+
+export class AppModule {
+  constructor(private upgrade: UpgradeModule) { }
+
+  ngDoBootstrap() {
+    this.upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
+  }
+}
+
+```
 
