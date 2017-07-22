@@ -364,8 +364,166 @@ Our AngularJS application relies on `@angular/material` for display components, 
 
 **Note:** *While I'll include the process of rewriting the component in this section, the recommended steps for your first downgraded component are to just create a basic working component, downgrade it, then show that it works.  [Here you can see the commit where I did this](https://github.com/jensbodal/ng1-ng2-hybrid/commit/bdbecdfd5d56a45a0e4992c3d5805d06ae2b92fa).*
 
-**@TODO FINISH THIS SECTION**
 
+Ideally you are already using components in AngularJS, components became available in [version 1.5](https://github.com/angular/angular.js/blob/master/CHANGELOG.md#features-11). Much of the syntax and style is quite similar to components in Angular, below is an annotated version of the rewritten component.
+
+```
+/**
+ * Component: required for the @Component annotation
+ * Input: required for binding attributes in the template to the class
+ * OnChanges: similar to AngularJS component's $onChanges lifecycle hook
+ */
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+/**
+ * GithubFileInfo: a new class to handle the details of what this object represents
+ */
+import { GithubFileInfo } from './githubFileInfo';
+
+@Component({
+  /* these are fairly straightforward */
+  selector: 'aseed-file-info-card',
+  templateUrl: './fileInfoCard.component.html',
+  styleUrls: ['./fileInfoCard.component.scss']
+})
+
+/* we need to explicitly implement OnChanges and/or OnInit if we want to use them */
+export class FileInfoCardComponent implements OnChanges {
+
+  /**
+	 What we had in angularJS:
+
+     bindings: {
+		fileInfo: '<'
+	  },
+
+	 becomes:
+   */
+  @Input() fileInfo: GithubFileInfo;
+
+  /* modifier 'public' means it will be available for use in the template */
+  public patchInfo: string;
+
+  /* executed when the class is instantiated */
+  constructor() {}
+
+  /**
+   * not used: ngOnInit -- called after component is initialized and after constructor
+   * https://angular.io/api/core/OnInit
+   */
+
+  /* Called before ngOnInit() and whenever one or more data-bound input properties change */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.fileInfo && changes.fileInfo.currentValue) {
+      // instead of having the logic for handling the fileInfo, we create a GithubFileInfo
+      // class and have it take care of what it is supposed to do
+      const fileInfo = new GithubFileInfo(changes.fileInfo.currentValue);
+
+	   // formatPatch method from AngularJS component also moved to GithubFileInfo class
+      if (fileInfo.patch) {
+        this.patchInfo = fileInfo.patch;
+      }
+    }
+  }
+}
+```
+
+Instead of specifying the type of binding in the component like we did with AngularJS:
+
+
+| syntax | type of binding |
+|---|---|
+|`<`|one-way binding|
+|`=`|two-way binding|
+|`@`|string/value/interpolated binding|
+|`&`|expression binding|
+
+Angular uses `@Input()` and `@Output()` for bindings and 'events', or better put, for inputs and outputs to the component.
+
+When using the component, you specify the *type* of binding with how the attribute is declared. See the below table for reference:
+
+| syntax | type of binding |
+|---|---|
+|`[attribute]`|one-way binding |
+|`(attribute)`|event/output binding |
+|`[(attribute)]`|banana-in-a-box/two-way binding |
+
+For the purposes of this demonstration we will only be using one-way binding with `@Input()` and `[attribute]`.  Also note that "*most AngularJS two-way bindings actually only need a one-way binding in practice,* `<my-component [myValue]="anExpression">` *is often enough*" ([Angular upgrade guide](https://angular.io/api/upgrade/static/UpgradeComponent)).
+
+
+#### The Component's Template
+
+The template for the rewritten component are nearly identical. The biggest difference is the use of `*ngFor` which replaces `ng-repeat`. AngularJS's `ng-repeat` had quite a few built in filters and features which are not available with `*ngFor`.  One of the biggest differences is that you can not iterate through an object's keys and values like you could with `ng-repeat`, for that purpose I have written a `pipe` called `object` which returns `item` as an array of objects with 'key' and 'value' properties.
+
+
+**Before**
+
+```
+<md-card>
+    <div ng-repeat="(key, value) in vm.fileInfo">
+        <span class="key-value">{{ key }}:</span> {{ value }}
+    </div>
+    <pre>{{vm.patchInfo}}</pre>
+</md-card>
+```
+
+**After**
+
+```
+<div>
+  <div *ngFor="let item of fileInfo | object:'patch'">
+    <span class="key-value">{{ item.key }}:</span> {{ item.value }}
+  </div>
+
+  <pre>{{patchInfo}}</pre>
+</div>
+```
+
+**Pipes???** I thought pipes were evil??? Angular now has the notion of [**pure** and **impure** pipes](https://angular.io/guide/pipes#pure-and-impure-pipes). The discussion and implementation of the pipe used here is outside the scope of this writeup, but I'll sum up the differences with what is listed in the linked Angular guide:
+
+* pure pipe execute only when it detects a pure change to the input value
+* a pure change is either a change to a primitive input value (`String`, `Number`, `Boolean`, `Symbol`) or a changed object reference (`Date`, `Array`, `Function`, `Object`)
+* impure pipes are executed during every component change detection cycle
+* an impure pipe is called often, as often as every keystroke or mouse-move
+
+The same way you *can* do two-way bindings with component attributes, you can create impure pipes similar to AngularJS, but unless done correctly and for the right purpose, performance will suffer.
+
+Also note that there are many pipes available by default like there were with AngularJS, [see here for some examples](https://angular.io/guide/pipes#appendix-no-filterpipe-or-orderbypipe).
+
+Lastly note that in order to use a pipe in your component, the pipe needs to be part of a module, and that module needs to be in the context of the module that your component is declared in. Here I've added the `ObjectPipe` to the `PipesModule` and imported `PipesModule` into the `GithubModule`.  If I wanted the `ObjectPipe` to be available app-wide, I could import it into the main `AppModule`.
+
+**CSS**
+
+At the beginning of this step we switched over to using sass, something that could have been done when we initially added Angular but I didn't do because I forgot :)
+
+The sass file, like the template file, is [nearly identical](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4#diff-b66c9f29ac5f593f170f95bfdd04fc65). We simply swap out the `github-file-info-card` selector for the [`:host`](https://angular.io/guide/component-styles#host) selector. The `:host` selector is the only way to target the host (component) element.
+
+#### Github Module
+
+The last step is to include the component into a module so that it can be used. Here I'll create the main GithubModule which will house the other components if/when they are rewritten.
+
+```
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { PipesModule } from '../pipes/pipes.module';
+import { FileInfoCardComponent } from './fileInfoCard/fileInfoCard.component';
+
+@NgModule({
+    imports: [
+        CommonModule,
+        PipesModule
+    ],
+    declarations: [
+        FileInfoCardComponent
+    ],
+    exports: [
+        FileInfoCardComponent
+    ]
+})
+
+export class GithubModule { }
+```
 
 ### Downgrade Module
 
@@ -405,11 +563,10 @@ In our app module we now need to include `downgrades.ts` which specifies an Angu
 
 ```
 ngDoBootstrap() {
-	this.upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
+    this.upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
 }
 ```
 
-*app module changes highlighted*
 
 Final `app.module.ts`
 
