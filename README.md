@@ -3,6 +3,12 @@
 ***Note:*** *I had to retroactively update the `bower.json` file to include fixed versions for `angular-animate`, `angular-aria`, and
 `angular-messages` due to an issue with some updated packages, so they appear as a part of every step comparison :(*
 
+* [Step 1: Adding Angular](https://github.com/jensbodal/ng1-ng2-hybrid#step-1-adding-angular)
+* [Step 2: Bootstrapping AngularJS from Angular](https://github.com/jensbodal/ng1-ng2-hybrid#step-2-bootstrapping-angularjs-from-angular)
+* [Step 3: Modifying the build process](https://github.com/jensbodal/ng1-ng2-hybrid#step-3-modifying-the-build-process)
+* [Step 4: Downgrading an Angular component](https://github.com/jensbodal/ng1-ng2-hybrid#step-4-downgrading-an-angular-component)
+
+
 Back in April we made a decision to convert our AngularJS application to a hybrid Angular/AngularJS application.  We had a feeling that we wanted to move towards the newer framework and due to the development of a new shared component the opportunity arose to do so.
 
 Here I will use what I learned and outline the steps needed to convert a sample application from Angular to AngularJS including the steps in between.
@@ -306,7 +312,7 @@ building the Angular application along side AngularJS using grunt. The primary c
 
 
 
-## Step 4: Downgrading an Angular component and service
+## Step 4: Downgrading an Angular component
 
 [Comparison from step-3 to step-4](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-3...step-4)
 
