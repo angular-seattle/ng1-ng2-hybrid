@@ -25,7 +25,6 @@ import './downgrades';
     FileInfoCardComponent
   ],
   providers: [
-    { provide: 'githubApi', useExisting: 'githubApiProvider' }
   ],
   bootstrap: [
   ]
