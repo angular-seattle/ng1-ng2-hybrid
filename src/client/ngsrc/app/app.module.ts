@@ -27,13 +27,10 @@ import './downgrades';
   providers: [
   ],
   bootstrap: [
+    AppComponent
   ]
 })
 
 export class AppModule {
-  constructor(private upgrade: UpgradeModule) { }
-
-  ngDoBootstrap() {
-    this.upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
-  }
+  ngDoBootstrap() { }
 }
