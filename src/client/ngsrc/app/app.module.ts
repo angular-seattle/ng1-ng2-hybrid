@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { UrlHandlingStrategy, UrlTree } from '@angular/router';
 import { UpgradeModule } from '@angular/upgrade/static';
@@ -50,6 +50,7 @@ export class AngularUrlHandlingStrategy implements UrlHandlingStrategy {
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: UrlHandlingStrategy, useClass: AngularUrlHandlingStrategy }
   ],
   bootstrap: [

@@ -9,19 +9,9 @@
       templateUrl: 'app/layout/main.component.html'
     });
 
-  MainController.$inject = [
-    '$mdSidenav'
-  ];
+  MainController.$inject = [];
 
-  function MainController($mdSidenav) {
-    var vm = this;
-    vm.pageTitle = 'Dynamic Page Title';
-
-    vm.closeSidenav = closeSidenav;
-
-    function closeSidenav() {
-      $mdSidenav('main-sidenav').close();
-    }
+  function MainController() {
   }
 
 })();

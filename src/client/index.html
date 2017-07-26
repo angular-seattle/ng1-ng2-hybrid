@@ -34,7 +34,10 @@
 <!-- endbuild -->
 </head>
 
-<body>
+<!-- because we are loading our header here now, we need the ng-cloak attribute to wait for css -->
+<body ng-cloak>
+    <angular-seed-header></angular-seed-header>
+
     <aseed-root></aseed-root>
 
 <!-- build:js(.) scripts/vendor.js -->
