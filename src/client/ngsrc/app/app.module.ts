@@ -19,6 +19,7 @@ export class AngularUrlHandlingStrategy implements UrlHandlingStrategy {
   shouldProcessUrl(url: UrlTree): boolean {
     switch (url.toString()) {
       case '/hello-world':
+      case '/undefined-angular-route':
         return true;
       default:
         return false;

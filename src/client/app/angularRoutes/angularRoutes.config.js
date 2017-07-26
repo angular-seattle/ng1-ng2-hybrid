@@ -14,6 +14,11 @@
         // use empty template because ui-router needs something to show
         // Angular component will take over though
         template: ''
-      });
+      })
+      .state('undefinedAngularRoute', {
+        url: '/undefined-angular-route',
+        template: ''
+      })
+      ;
   }
 })();
