@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { UrlHandlingStrategy, UrlTree } from '@angular/router';
 import { UpgradeModule } from '@angular/upgrade/static';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 // components/services that are being downgraded need to be added to our main app module's entryComponents/providers
 // their respective modules added to our imports
@@ -12,11 +15,31 @@ import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.compon
 // import all of our downgraded components and services
 import './downgrades';
 
+export class AngularUrlHandlingStrategy implements UrlHandlingStrategy {
+  shouldProcessUrl(url: UrlTree): boolean {
+    switch (url.toString()) {
+      case '/hello-world':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  extract(url: UrlTree): UrlTree {
+    return url;
+  }
+
+  merge(url: UrlTree, whole: UrlTree): UrlTree {
+    return url;
+  }
+}
+
 @NgModule({
   imports: [
     BrowserModule,
     GithubModule,
-    UpgradeModule
+    UpgradeModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent
@@ -25,6 +48,8 @@ import './downgrades';
     FileInfoCardComponent
   ],
   providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: UrlHandlingStrategy, useClass: AngularUrlHandlingStrategy }
   ],
   bootstrap: [
     AppComponent

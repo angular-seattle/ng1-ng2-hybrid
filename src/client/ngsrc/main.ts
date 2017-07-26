@@ -15,7 +15,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .then((platformRef) => {
     const upgrade: UpgradeModule = platformRef.injector.get(UpgradeModule) as UpgradeModule;
 
-    upgrade.bootstrap(document.documentElement, ['angularSeed', 'ng.downgrades'], {strictDi: true})
+    upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
   })
   .catch(err => {
     console.log(err);
