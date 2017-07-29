@@ -59,5 +59,9 @@ export class AngularUrlHandlingStrategy implements UrlHandlingStrategy {
 })
 
 export class AppModule {
+  constructor(private upgrade: UpgradeModule) {
+    upgrade.bootstrap(document.body, ['angularSeed', 'ng.downgrades'], {strictDi: true})
+  }
+
   ngDoBootstrap() { }
 }
