@@ -10,7 +10,6 @@
       'angularSeed.pureAngularjs',
       'angularSeed.shared',
       'angularSeed.angularRoutes',
-      'angularSeed.angularRootWrapper',
       'ng.downgrades'
     ]
   );
