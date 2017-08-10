@@ -1,3 +1,18 @@
+<md-sidenav
+    class="md-sidenav-left"
+    md-component-id="main-sidenav"
+    md-whiteframe="4"
+    >
+    <md-toolbar class="md-theme-indigo left-nav-toolbar">
+        <h1 class="md-toolbar-tools">MENU</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+        <a ng-href="/#" ng-click="vm.closeSidenav()"><md-button class="md-raised md-primary">HOME</md-button></a>
+        <a ng-href="/#/pure-angularjs" ng-click="vm.closeSidenav()"><md-button class="md-raised md-primary">Pure AngularJS Page</md-button></a>
+        <a href="/#/hello-world" ng-click="vm.closeSidenav()"><md-button class="md-raised md-primary">Angular Hello World</a>
+    </md-content>
+</md-sidenav>
+
 <md-toolbar layout="row">
     <angular-seed-left-nav></angular-seed-left-nav>
     <h2 class="md-toolbar-tools">

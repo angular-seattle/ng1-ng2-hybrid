@@ -9,8 +9,20 @@
       templateUrl: 'app/layout/header.component.html'
     });
 
-  function HeaderController() {
+  HeaderController.$inject = [
+    '$mdSidenav'
+  ];
+
+  function HeaderController($mdSidenav) {
     var vm = this;
+
+    vm.pageTitle = 'Dynamic Page Title';
+
+    vm.closeSidenav = closeSidenav;
+
+    function closeSidenav() {
+      $mdSidenav('main-sidenav').close();
+    }
   }
 
 })();
