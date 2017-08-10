@@ -853,5 +853,4 @@ Here the events we grab are the event handler function names from AngularMateria
 
 ![](./readme_assets/zonejs_after.gif)
 
-[See change which introduced this
-code](https://github.com/jensbodal/ng1-ng2-hybrid/compare/branch-step-5...addendum/angular-digests#diff-2debf9484617d72ebfa8f2ae08e00fec)
+[See pull request which introduced this code](https://github.com/jensbodal/ng1-ng2-hybrid/pull/10/files)
