@@ -37,7 +37,7 @@
     }
 
     function $onDestroy() {
-      $interval.cancel();
+      $interval.cancel(_interval);
     }
   }
 
