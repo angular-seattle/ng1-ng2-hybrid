@@ -8,7 +8,7 @@
 * [Step 3: Modifying the build process](https://github.com/jensbodal/ng1-ng2-hybrid#step-3-modifying-the-build-process)
 * [Step 4: Downgrading an Angular component](https://github.com/jensbodal/ng1-ng2-hybrid#step-4-downgrading-an-angular-component)
 * [Step 5: Adding an Angular Route](https://github.com/jensbodal/ng1-ng2-hybrid#step-5-adding-an-angular-route)
-* [Addendum: Angular zone.js $digest issues()
+* [Addendum 1: Angular zone.js $digest issues(https://github.com/jensbodal/ng1-ng2-hybrid#addendum-1-angular-digest-issues)
 
 
 Back in April we made a decision to convert our AngularJS application to a hybrid Angular/AngularJS application.  We had a feeling that we wanted to move towards the newer framework and due to the development of a new shared component the opportunity arose to do so.
@@ -750,7 +750,7 @@ The `**` path is similar to the `$urlRouterProvider.otherwise` functionality of 
 These are the basics for deciding how to handle the routes in your hybrid application.  You can take a look at the implementation of the other routing modules and component templates to see how they work.
 
 
-# Addendum: Angular $digest issues
+# Addendum 1: Angular $digest issues
 
 If you upgrade a larger application you might notice some immediate performance issues. One of the biggest issues with the current state of the `UpgradeModule` is the way "*Angular uses Zone.js to create its own zone (NgZone), which monkey-patches all asynchronous events (browser DOM events, timeouts, AJAX/XHR). This is how change detection is able to automatically run after each asynchronous event. I.e., after each asynchronous event handler (function) finishes, Angular change detection will execute [source](https://stackoverflow.com/a/35469104/679716).*"
 
@@ -765,7 +765,7 @@ We can observe this behavior by using something like batarang or just adding som
 ```
 
 <div class="main-container">
-	<h1>DIGESTS: <span id="digest-count">0</span></h1>
+    <h1>DIGESTS: <span id="digest-count">0</span></h1>
 ```
 
 **main.component.js**
