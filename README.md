@@ -787,7 +787,15 @@ function MainController($scope) {
 }
 ```
 
-No on all our pages we will see the total number of digests ran since starting the application.
+Now on all our pages we will see the total number of digests ran since starting the application.
+
+Alternatively, you could just log the digest counts to the console by pasting this in:
+
+```
+var count = 0;
+function incrementAndUpdateCount() { console.log(++count); };
+angular.element(document.body).injector().get('$rootScope').$watch(incrementAndUpdateCount);
+```
 
 **BEFORE**
 
