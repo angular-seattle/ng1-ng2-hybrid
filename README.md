@@ -7,6 +7,7 @@
 * [Step 2: Bootstrapping AngularJS from Angular](https://github.com/jensbodal/ng1-ng2-hybrid#step-2-bootstrapping-angularjs-from-angular)
 * [Step 3: Modifying the build process](https://github.com/jensbodal/ng1-ng2-hybrid#step-3-modifying-the-build-process)
 * [Step 4: Downgrading an Angular component](https://github.com/jensbodal/ng1-ng2-hybrid#step-4-downgrading-an-angular-component)
+* [Step 5: Adding an Angular Route](https://github.com/jensbodal/ng1-ng2-hybrid#step-5-adding-an-angular-route)
 
 
 Back in April we made a decision to convert our AngularJS application to a hybrid Angular/AngularJS application.  We had a feeling that we wanted to move towards the newer framework and due to the development of a new shared component the opportunity arose to do so.
