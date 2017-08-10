@@ -397,13 +397,13 @@ import { GithubFileInfo } from './githubFileInfo';
 export class FileInfoCardComponent implements OnChanges {
 
   /**
-	 What we had in angularJS:
+     What we had in angularJS:
 
      bindings: {
-		fileInfo: '<'
-	  },
+        fileInfo: '<'
+      },
 
-	 becomes:
+     becomes:
    */
   @Input() fileInfo: GithubFileInfo;
 
@@ -425,7 +425,7 @@ export class FileInfoCardComponent implements OnChanges {
       // class and have it take care of what it is supposed to do
       const fileInfo = new GithubFileInfo(changes.fileInfo.currentValue);
 
-	   // formatPatch method from AngularJS component also moved to GithubFileInfo class
+       // formatPatch method from AngularJS component also moved to GithubFileInfo class
       if (fileInfo.patch) {
         this.patchInfo = fileInfo.patch;
       }
@@ -619,4 +619,18 @@ export class AppModule {
 }
 
 ```
+
+## Step 5: Adding an Angular Route
+
+[Comparison from step-4 to step-5](https://github.com/jensbodal/ng1-ng2-hybrid/compare/step-4...step-5)
+
+The most effective way of upgrading your application is to actually replace entire routes with pure Angular code. Depending on what
+services, directives, and components your route is dependent on, this could be a fairly large undertaking. Here I will simply show you how
+to add the scaffolding necessary to use the Angular Router along side AngularJS's ui-router, and how to tell each one when to take over the
+routing. We will also set up a simple example route to show that our new Angular routes are working.
+
+*If you're using the AngularJS angular router and* `ng-view`*, I've read the steps are quite similar, however you might want to look
+[here](http://blog.lssinc.com/2017/05/23/from-angularjs-to-angular-upgrading-made-simple-with-upgrademodule-and-webpack/) or
+[here](https://vsavkin.com/migrating-angular-1-applications-to-angular-2-in-5-simple-steps-40621800a25b) to see examples of that.*
+
 
