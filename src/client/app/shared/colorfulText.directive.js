@@ -29,7 +29,7 @@
         var interpolated = innerHtml.replace(/[{}]/g, '');
 
         $scope.$watch(function() {
-          return $scope.vm.angularjsTwoWay;
+          return $parse(interpolated)($scope);
         }, function() {
 
           var newValue = $parse(interpolated)($scope);
@@ -53,6 +53,10 @@
     }
 
     function colorizeContent(str) {
+      if (!str) {
+        return;
+      }
+
       var contentChars = str.split('');
       var template = '';
 
