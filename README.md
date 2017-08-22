@@ -165,6 +165,7 @@ karma-coverage-istanbul-reporter@1.3.0 \
 karma-jasmine@1.1.0 \
 karma-jasmine-html-reporter@0.2.2 \
 protractor@5.1.2 \
+@types/angular@1.6.20 \
 @types/jasmine@2.5.52
 ```
 
@@ -199,13 +200,15 @@ I'll use vim:
 
 **src/client/ngsrc/tsconfig.app.json**
 
-**NOTE:** As of `@angular/cli@1.1.0` the new `paths` key needs to be added to `compilerOptions`.  Otherwise the only change is to update the relative path for `extends`.
+**NOTE:** As of `@angular/cli@1.1.0` the new `paths` key needs to be added to `compilerOptions`.  Otherwise the only changes are
+to update the relative path for `extends` and add `angular` to the types array.
 
 ```
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     ...
+    "types": ["angular"],
     "paths": {
       "@angular/*": [
         "../../../node_modules/@angular/*"
@@ -217,6 +220,9 @@ I'll use vim:
 ```
 
 [You can see a summary of the above changes here](https://github.com/jensbodal/ng1-ng2-hybrid/commit/acaa2672571dd05eb725bc266bea472274271a3e)
+
+(***Note*** `@types/angular` *is not included in this commit because I moved that step here after the fact, it's mentioned later in the guide
+ where it's added*)
 
 You should now be able to run `ng build` and see that the example app builds with our new structure.  If following along with the repo, add a new static route in `src/client/server/app.js` for: `app.use(express.static('./dist/ng'));`, you can now load the example app at `127.0.0.1:6677/dist/ng`.  You won't need this route for our purposes so feel free to remove it after testing.
 
