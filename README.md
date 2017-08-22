@@ -663,7 +663,6 @@ import './downgrades';
     FileInfoCardComponent
   ],
   providers: [
-    { provide: 'githubApi', useExisting: 'githubApiProvider' }
   ],
   bootstrap: [
   ]
@@ -678,8 +677,6 @@ export class AppModule {
 }
 
 ```
-
-Of importance to note is that we are also upgrading the AngularJS `githubApi` service and using it within our rewritten Angular component.
 
 ## Step 5: Adding an Angular Route
 
