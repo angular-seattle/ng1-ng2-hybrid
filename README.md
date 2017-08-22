@@ -125,7 +125,7 @@ Here's what the Angular package.json looks like:
 Below are the fixed installations for the above files as of this writing.  You'll likely have versions of the test packages already installed, I'd recommend holding off on getting testing working until you've successfully bootstrapped your hybrid application.
 
 ```
-export angularversion=4.2.2
+angularversion=4.2.2
 
 # dependencies
 yarn add -E core-js@2.4.1 \
@@ -136,17 +136,17 @@ zone.js@0.8.12 \
 @angular/compiler@$angularversion \
 @angular/platform-browser@$angularversion \
 @angular/platform-browser-dynamic@$angularversion \
-@angular/forms@$angularVersion \
-@angular/http@$angularVersion \
-@angular/router@$angularVersion \
+@angular/forms@$angularversion \
+@angular/http@$angularversion \
+@angular/router@$angularversion \
 @angular/upgrade@$angularversion \
-@angular/animations$angularVersion
+@angular/animations@$angularversion
 
 # devDependencies
 yarn add -ED typescript@2.3.4 \
 @angular/cli@1.1.2 \
-@angular/compiler-cli@$angularVersion \
-@angular/language-service@$angularVersion \
+@angular/compiler-cli@$angularversion \
+@angular/language-service@$angularversion \
 @types/node@6.0.78 \
 codelyzer@3.0.1 \
 ts-node@3.0.6 \
