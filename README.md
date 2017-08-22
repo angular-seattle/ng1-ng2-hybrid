@@ -147,6 +147,7 @@ yarn add -ED typescript@2.3.4 \
 @angular/cli@1.1.2 \
 @angular/compiler-cli@$angularversion \
 @angular/language-service@$angularversion \
+@types/angular@1.6.30 \
 @types/node@6.0.78 \
 codelyzer@3.0.1 \
 ts-node@3.0.6 \
