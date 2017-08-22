@@ -508,6 +508,55 @@ Also note that there are many pipes available by default like there were with An
 
 Lastly note that in order to use a pipe in your component, the pipe needs to be part of a module, and that module needs to be in the context of the module that your component is declared in. Here I've added the `ObjectPipe` to the `PipesModule` and imported `PipesModule` into the `GithubModule`.  If I wanted the `ObjectPipe` to be available app-wide, I could import it into the main `AppModule`.
 
+**object.pipe.ts**
+
+```
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'object'
+})
+
+export class ObjectPipe implements PipeTransform {
+  transform(value: any, exclude: string | string[]): any {
+    if (!value) {
+      return value;
+    }
+
+    const keys = [];
+
+    for (const key of Object.keys(value)) {
+      if (exclude.indexOf(key) !== -1) {
+        continue;
+      }
+
+      keys.push({key: key, value: value[key]});
+    }
+
+    return keys;
+  }
+}
+```
+
+**pipes.module.ts**
+
+```
+import { NgModule } from '@angular/core';
+
+import { ObjectPipe } from './object.pipe';
+
+@NgModule({
+  declarations: [
+    ObjectPipe
+  ],
+  exports: [
+    ObjectPipe
+  ]
+})
+
+export class PipesModule { }
+```
+
 **CSS**
 
 At the beginning of this step we switched over to using sass, something that could have been done when we initially added Angular but I didn't do because I forgot :)
@@ -629,6 +678,8 @@ export class AppModule {
 }
 
 ```
+
+Of importance to note is that we are also upgrading the AngularJS `githubApi` service and using it within our rewritten Angular component.
 
 ## Step 5: Adding an Angular Route
 
