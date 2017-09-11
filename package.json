@@ -16,7 +16,8 @@
     "build:watch": "ng build --watch --delete-output-path=false --output-path=dist/ng/dev",
     "test": "ng test -cc --single-run",
     "test:watch": "ng test -cc --watch",
-    "test:e2e": "ng e2e --single-run",
+    "e2e": "ng e2e --serve=false -wu --live-reload=false --port 6677",
+    "e2e:watch": "ng e2e --serve=false -wu --live-reload=false --port 6677 --watch",
     "start": "grunt default",
     "postinstall": "bower install"
   },
@@ -44,6 +45,7 @@
     "@angular/language-service": "4.2.2",
     "@types/angular": "1.6.20",
     "@types/jasmine": "2.5.52",
+    "@types/jasminewd2": "2.0.3",
     "@types/node": "6.0.78",
     "bower": "1.8.0",
     "codelyzer": "3.0.1",

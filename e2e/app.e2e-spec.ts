@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 
-describe('cli-v141 App', () => {
+describe('ng1-ng2-hybrid', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display header text', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getHeaderText()).toEqual('Upgrading AngularJS to Angular using UpgradeAdapter');
   });
 });
