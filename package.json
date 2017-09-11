@@ -14,7 +14,9 @@
     "build": "ng build -prod --output-path=dist/ng/build",
     "build:dev": "ng build --delete-output-path=false --output-path=dist/ng/dev",
     "build:watch": "ng build --watch --delete-output-path=false --output-path=dist/ng/dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ng test -cc --single-run",
+    "test:watch": "ng test -cc --watch",
+    "test:e2e": "ng e2e --single-run",
     "start": "grunt default",
     "postinstall": "bower install"
   },
