@@ -2,8 +2,39 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function (config) {
+  var paths = {
+    base: '',
+    ng1: './src/client/app',
+    ng2: './src/client/ngsrc',
+    test: './test'
+  };
+
+  var dependencies = [
+    // bower:js
+    'bower_components/angular/angular.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/angular-aria/angular-aria.js',
+    'bower_components/angular-messages/angular-messages.js',
+    'bower_components/angular-material/angular-material.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.js',
+    // endbower
+  ];
+
   config.set({
-    basePath: '',
+    basePath: paths.base,
+    files: []
+      .concat(dependencies)
+      .concat(paths.test + '/mocks/**/*.mock.js')
+      .concat([
+        paths.ng1 + '/app.module.js',
+        paths.ng1 + '/app.config.js',
+        paths.ng1 + '/app.run.js',
+        paths.ng1 + '/**/*.module.js',
+        paths.ng1 + '/**/*!(.module).js'
+      ]
+    ),
+
     frameworks: ['jasmine', '@angular/cli'],
     plugins: [
       require('karma-jasmine'),
