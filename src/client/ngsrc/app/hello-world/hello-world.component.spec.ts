@@ -8,6 +8,7 @@ import { HelloWorldComponent } from './hello-world.component';
 describe('HelloWorldComponent', () => {
   let component: HelloWorldComponent;
   let fixture: ComponentFixture<HelloWorldComponent>;
+  let element: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,10 +20,16 @@ describe('HelloWorldComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HelloWorldComponent);
     component = fixture.componentInstance;
+    element = fixture.debugElement.nativeElement;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display hello-world', () => {
+    expect(element.innerText).toBe('hello-world works!');
   });
 });

@@ -19,10 +19,10 @@ export class FileInfoCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.fileInfo && changes.fileInfo.currentValue) {
-      const fileInfo = new GithubFileInfo(changes.fileInfo.currentValue);
+      this.fileInfo = new GithubFileInfo(changes.fileInfo.currentValue);
 
-      if (fileInfo.patch) {
-        this.patchInfo = fileInfo.patch;
+      if (this.fileInfo.patch) {
+        this.patchInfo = this.fileInfo.patch;
       }
     }
   }
