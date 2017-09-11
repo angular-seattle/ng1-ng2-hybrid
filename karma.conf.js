@@ -4,6 +4,7 @@
 module.exports = function (config) {
   var paths = {
     base: '',
+    coverage: './coverage',
     ng1: './src/client/app',
     ng2: './src/client/ngsrc',
     test: './test'
@@ -31,7 +32,7 @@ module.exports = function (config) {
         paths.ng1 + '/app.config.js',
         paths.ng1 + '/app.run.js',
         paths.ng1 + '/**/*.module.js',
-        paths.ng1 + '/**/*!(.module).js'
+        paths.ng1 + '/**/!(*module).js'
       ]
     ),
 
@@ -40,20 +41,30 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-spec-reporter'),
       require('karma-coverage-istanbul-reporter'),
+      require('karma-coverage-istanbul-es5-preprocessor'),
       require('@angular/cli/plugins/karma')
     ],
+    preprocessors: {
+      [paths.ng1 + '/**/!(*spec).js']: ['coverage-istanbul-es5']
+    },
     client:{
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      dir: paths.coverage,
+      reports: [ 'html', 'text-summary' ],
       fixWebpackSourcePaths: true
     },
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: [
+      'progress',
+      'coverage-istanbul',
+      'kjhtml'
+    ],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
