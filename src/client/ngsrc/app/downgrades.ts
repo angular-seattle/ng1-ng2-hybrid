@@ -2,7 +2,7 @@ import { downgradeComponent } from '@angular/upgrade/static';
 import { downgradeInjectable, UpgradeComponent, UpgradeModule } from '@angular/upgrade/static';
 
 // our components
-import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
+import { FileInfoCardComponent } from './github/file-info-card/file-info-card.component';
 
 // our services
 /* empty */
