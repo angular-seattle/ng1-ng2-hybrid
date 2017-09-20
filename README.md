@@ -4,14 +4,14 @@
 `angular-messages` due to an issue with some updated packages, so they appear as a part of every step comparison :(*
 
 *There was also a memory leak in the `pureAngularjs` component which is not fixed in steps 1-5, fix is addressed
-[here](/pull/11/files#diff-dc0248ff1bd622babf1fed7c5f2800b1)*
+[here](https://github.com/angular-seattle/ng1-ng2-hybrid/pull/11/files#diff-dc0248ff1bd622babf1fed7c5f2800b1)*
 
-* [Step 1: Adding Angular](#step-1-adding-angular)
-* [Step 2: Bootstrapping AngularJS from Angular](#step-2-bootstrapping-angularjs-from-angular)
-* [Step 3: Modifying the build process](#step-3-modifying-the-build-process)
-* [Step 4: Downgrading an Angular component](#step-4-downgrading-an-angular-component)
-* [Step 5: Adding an Angular Route](#step-5-adding-an-angular-route)
-* [Addendum 1: Angular zone.js $digest issues](#addendum-1-angular-digest-issues)
+* [Step 1: Adding Angular](https://github.com/angular-seattle/ng1-ng2-hybrid#step-1-adding-angular)
+* [Step 2: Bootstrapping AngularJS from Angular](https://github.com/angular-seattle/ng1-ng2-hybrid#step-2-bootstrapping-angularjs-from-angular)
+* [Step 3: Modifying the build process](https://github.com/angular-seattle/ng1-ng2-hybrid#step-3-modifying-the-build-process)
+* [Step 4: Downgrading an Angular component](https://github.com/angular-seattle/ng1-ng2-hybrid#step-4-downgrading-an-angular-component)
+* [Step 5: Adding an Angular Route](https://github.com/angular-seattle/ng1-ng2-hybrid#step-5-adding-an-angular-route)
+* [Addendum 1: Angular zone.js $digest issues](https://github.com/angular-seattle/ng1-ng2-hybrid#addendum-1-angular-digest-issues)
 
 
 Back in April we made a decision to convert our AngularJS application to a hybrid Angular/AngularJS application.  We had a feeling that we wanted to move towards the newer framework and due to the development of a new shared component the opportunity arose to do so.
@@ -20,7 +20,7 @@ Here I will use what I learned and outline the steps needed to convert a sample 
 
 ## Base AngularJS application
 
-[ng1-ng2-hybrid](/tree/angularjs-base) (linked to angular.js base tag) is a simple angular.js application with two views.  One makes a call to a local nodejs server which mocks a response from GitHub's api (using a mocked version to facilitate ease in testing and to avoid getting rate limited).  The other view is just some silliness with showing a directive which randomly assigns a color to each letter in a string and utilizes an attribute directive as well as two services.
+[ng1-ng2-hybrid](https://github.com/angular-seattle/ng1-ng2-hybrid/tree/angularjs-base) (linked to angular.js base tag) is a simple angular.js application with two views.  One makes a call to a local nodejs server which mocks a response from GitHub's api (using a mocked version to facilitate ease in testing and to avoid getting rate limited).  The other view is just some silliness with showing a directive which randomly assigns a color to each letter in a string and utilizes an attribute directive as well as two services.
 
 The code tries to follow [John Papa's AngularJS style guide](https://github.com/johnpapa/angular-styleguide/tree/master/a1), and now that his Angular guide [is the official Angular Style guide](https://github.com/johnpapa/angular-styleguide/tree/master/a2#angular-team-endorsed), we will use similar best practices when we start writing that code.
 
@@ -29,23 +29,23 @@ The code tries to follow [John Papa's AngularJS style guide](https://github.com/
 * `npm@4.2.0`
 * `bower@1.8.0`
 * `grunt@1.0.1`
-* [`package.json`](/blob/angularjs-base/package.json) (build/backend deps)
-* [`bower.json`](/blob/angularjs-base/bower.json) (front-end deps)
+* [`package.json`](https://github.com/angular-seattle/ng1-ng2-hybrid/blob/angularjs-base/package.json) (build/backend deps)
+* [`bower.json`](https://github.com/angular-seattle/ng1-ng2-hybrid/blob/angularjs-base/bower.json) (front-end deps)
 
 This is what some might consider a *legacy* javascript application, we are using bower for front-end dependencies, npm for back-end and build dependencies, and grunt to wire everything together. Over the course of this example angular-cli/webpack and yarn will be introduced to facilitate our new Angular application.
 
 ## Step 0: Starting Point
 
-Not much to do here.  Checkout the repo at tag `step-0` to see the branch at this state ([or view here](/tree/step-0)).
+Not much to do here.  Checkout the repo at tag `step-0` to see the branch at this state ([or view here](https://github.com/angular-seattle/ng1-ng2-hybrid/tree/step-0)).
 
 To build and run the AngularJS app simply run `grunt`.  It's recommended to keep this grunt tasking running in a separate shell through the entirety of this guide as it will continue to serve the app and update as files are changed.
 
 
 ## Step 1: Adding Angular
 
-[Comparison from step-0 to step-1](/compare/step-0...step-1)
+[Comparison from step-0 to step-1](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-0...step-1)
 
-*You can checkout the repo at tag [`step-1`](/tree/step-1) to see the end result of what is detailed here*
+*You can checkout the repo at tag [`step-1`](https://github.com/angular-seattle/ng1-ng2-hybrid/tree/step-1) to see the end result of what is detailed here*
 
 Ok so we want to introduce Angular, where do we start? First off it's good to read through the official [Upgrading from AngularJS](https://angular.io/guide/upgrade) guide to become familiar with the process and the terminology used.  Some things to consider before embarking on this endeavor for your own applications:
 
@@ -220,7 +220,7 @@ to update the relative path for `extends` and add `angular` to the types array.
 }
 ```
 
-[You can see a summary of the above changes here](/commit/acaa2672571dd05eb725bc266bea472274271a3e)
+[You can see a summary of the above changes here](https://github.com/angular-seattle/ng1-ng2-hybrid/commit/acaa2672571dd05eb725bc266bea472274271a3e)
 
 (***Note*** `@types/angular` *is not included in this commit because I moved that step here after the fact, it's mentioned later in the guide
  where it's added*)
@@ -232,7 +232,7 @@ Grunt should already be running in a separate shell and serving the AngularJS ap
 
 ## Step 2: Bootstrapping AngularJS from Angular
 
-[Comparison from step-1 to step-2](/compare/step-1...step-2)
+[Comparison from step-1 to step-2](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-1...step-2)
 
 Now that all the files are in place to build the Angular application, we will need to make some modifications to our original code in order to bootstrap AngularJS from the Angular app.  We will not be using the `index.html` file inside of the `ngsrc` folder, instead we will just be using the generated bundles from `dist/ng`.
 
@@ -310,7 +310,7 @@ Assuming you have `grunt` and `ng build --watch` running (otherwise run `ng buil
 
 ## Step 3: Modifying the build process
 
-[Comparison from step-2 to step-3](/compare/step-2...step-3)
+[Comparison from step-2 to step-3](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-2...step-3)
 
 It will probably be most helpful to just check out the comparison between steps 2 and 3 to see the changes that were added to support
 building the Angular application along side AngularJS using grunt. The primary changes being made and how the process works:
@@ -325,20 +325,20 @@ building the Angular application along side AngularJS using grunt. The primary c
 
 ## Step 4: Downgrading an Angular component
 
-[Comparison from step-3 to step-4](/compare/step-3...step-4)
+[Comparison from step-3 to step-4](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-3...step-4)
 
 Whew.  Our app is now running Angular/AngularJS side-by-side and it's integrated into our build process, so let's write some Angular code!
 
 
 For our first Angular component I will rewrite the `src/client/app/github/github.fileInfoCard.component.js` in Angular, downgrade it, then simply use it in AngularJS.
 
-***Note:*** *You might notice that the [`github.fileInfoCard.component`](/blob/step-3/src/client/app/github/github.fileInfoCard.component.js#L16) is incorrectly dependent on the `githubApi` service. Step-4 removes this unused dependency.*
+***Note:*** *You might notice that the [`github.fileInfoCard.component`](https://github.com/angular-seattle/ng1-ng2-hybrid/blob/step-3/src/client/app/github/github.fileInfoCard.component.js#L16) is incorrectly dependent on the `githubApi` service. Step-4 removes this unused dependency.*
 
 For the first component that's downgraded there is a bit of scaffolding that needs to be done, subsequent downgraded components will be significantly easier to downgrade.
 
 ### Changes
 
-There are a lot of changes here, it's best to view the [comparison from step-3 to step-4](/compare/step-3...step-4) to see all of the changes, however they will be summarized below, with some steps expanded on.
+There are a lot of changes here, it's best to view the [comparison from step-3 to step-4](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-3...step-4) to see all of the changes, however they will be summarized below, with some steps expanded on.
 
 * **.angular-cli.json** updated to use Sass to conform with what is setup on the AngularJS side, also updated our app prefix to `aseed`
 * **package.json** `@types/angular` added (explained in the downgrade section)
@@ -377,9 +377,9 @@ yarn add -ED @types/angular
 
 ### Rewriting the githubFileInfo Component
 
-Our AngularJS application relies on `@angular/material` for display components, so to make things easy for this step we are simply going to wrap the new fileInfo component in an `md-card` component rather than have it do that itself (as it was done [previously](/blob/step-3/src/client/app/github/github.fileInfoCard.component.html)).
+Our AngularJS application relies on `@angular/material` for display components, so to make things easy for this step we are simply going to wrap the new fileInfo component in an `md-card` component rather than have it do that itself (as it was done [previously](https://github.com/angular-seattle/ng1-ng2-hybrid/blob/step-3/src/client/app/github/github.fileInfoCard.component.html)).
 
-**Note:** *While I'll include the process of rewriting the component in this section, the recommended steps for your first downgraded component are to just create a basic working component, downgrade it, then show that it works.  [Here you can see the commit where I did this](/commit/bdbecdfd5d56a45a0e4992c3d5805d06ae2b92fa).*
+**Note:** *While I'll include the process of rewriting the component in this section, the recommended steps for your first downgraded component are to just create a basic working component, downgrade it, then show that it works.  [Here you can see the commit where I did this](https://github.com/angular-seattle/ng1-ng2-hybrid/commit/bdbecdfd5d56a45a0e4992c3d5805d06ae2b92fa).*
 
 
 Ideally you are already using components in AngularJS, components became available in [version 1.5](https://github.com/angular/angular.js/blob/master/CHANGELOG.md#features-11). Much of the syntax and style is quite similar to components in Angular, below is an annotated version of the rewritten component.
@@ -603,7 +603,7 @@ export class PipesModule { }
 
 At the beginning of this step we switched over to using sass, something that could have been done when we initially added Angular but I didn't do because I forgot :)
 
-The sass file, like the template file, is [nearly identical](/compare/step-3...step-4#diff-b66c9f29ac5f593f170f95bfdd04fc65). We simply swap out the `github-file-info-card` selector for the [`:host`](https://angular.io/guide/component-styles#host) selector. The `:host` selector is the only way to target the host (component) element.
+The sass file, like the template file, is [nearly identical](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-3...step-4#diff-b66c9f29ac5f593f170f95bfdd04fc65). We simply swap out the `github-file-info-card` selector for the [`:host`](https://angular.io/guide/component-styles#host) selector. The `:host` selector is the only way to target the host (component) element.
 
 #### Github Module
 
@@ -636,7 +636,7 @@ export class GithubModule { }
 
 In the `ngsrc/app` folder create a file called `downgrades.ts`. This file will serve as the soul source of all of our downgraded components and services which will be used in AngularJS. Multiple downgraded directives and services can simply be chained together and all of them will be included and accessible from AngularJS in the `ng.downgrades` module.
 
-#### [downgrades.ts](/compare/step-3...step-4#diff-9b8bacd63e0cf6ee57e7f115fd8a5387)
+#### [downgrades.ts](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-3...step-4#diff-9b8bacd63e0cf6ee57e7f115fd8a5387)
 
 ```
 import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
@@ -664,7 +664,7 @@ angular.module('ng.downgrades', [])
 ```
 
 
-#### [app.module.ts](/compare/step-3...step-4#diff-dbb539c917ba74ef6c5bed31a684680d)
+#### [app.module.ts](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-3...step-4#diff-dbb539c917ba74ef6c5bed31a684680d)
 
 In our app module we now need to include `downgrades.ts` which specifies an AngularJS module `ng.downgrades`.  We then include this module in the bootstrap portion of the app module.
 
@@ -722,7 +722,7 @@ export class AppModule {
 
 ## Step 5: Adding an Angular Route
 
-[Comparison from step-4 to step-5](/compare/step-4...step-5)
+[Comparison from step-4 to step-5](https://github.com/angular-seattle/ng1-ng2-hybrid/compare/step-4...step-5)
 
 The most effective way of upgrading your application is to actually replace entire routes with pure Angular code. Depending on what
 services, directives, and components your route is dependent on, this could be a fairly large undertaking. Here I will simply show you how
@@ -959,4 +959,4 @@ Here the events we grab are the event handler function names from AngularMateria
 
 ![](./readme_assets/zonejs_after.gif)
 
-[See pull request which introduced this code](/pull/10/files)
+[See pull request which introduced this code](https://github.com/angular-seattle/ng1-ng2-hybrid/pull/10/files)

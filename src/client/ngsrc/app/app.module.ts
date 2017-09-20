@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 // components/services that are being downgraded need to be added to our main app module's entryComponents/providers
 // their respective modules added to our imports
 import { GithubModule } from './github/github.module';
-import { FileInfoCardComponent } from './github/fileInfoCard/fileInfoCard.component';
+import { FileInfoCardComponent } from './github/file-info-card/file-info-card.component';
 
 // import all of our downgraded components and services
 import './downgrades';
