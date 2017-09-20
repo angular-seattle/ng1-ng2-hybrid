@@ -71,7 +71,9 @@ module.exports = function(grunt) {
     usemin: {
       html: ['./dist/**/*.html'],
       css: ['./dist/styles/**/*.css'],
-      js: ['./dist/scripts/**/*.js'],
+      js: [
+        './dist/scripts/**/*.js'
+      ],
       options: {
         blockReplacements: {
           css: function(block) {
@@ -94,7 +96,7 @@ module.exports = function(grunt) {
               'src/client/app/app.module.js',
               'src/client/app/app.config.js',
               'src/client/app/**/*.module.js',
-              'src/client/app/**/*!(.modules.js'
+              'src/client/app/**/*!.modules.js'
             ]
           }
         ]
@@ -193,7 +195,8 @@ module.exports = function(grunt) {
     angularFileLoader: {
       options: {
         scripts: [
-          'src/client/app/**/*.js'
+          'src/client/app/**/*.js',
+          '!src/client/app/**/*.spec.js'
         ],
         relative: false
       },

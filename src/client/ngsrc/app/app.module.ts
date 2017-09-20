@@ -7,6 +7,8 @@ import { UpgradeModule } from '@angular/upgrade/static';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { Ng1UpgradedServicesModule } from './ajs-upgraded-services';
+
 // components/services that are being downgraded need to be added to our main app module's entryComponents/providers
 // their respective modules added to our imports
 import { GithubModule } from './github/github.module';
@@ -40,7 +42,8 @@ export class AngularUrlHandlingStrategy implements UrlHandlingStrategy {
     BrowserModule,
     GithubModule,
     UpgradeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng1UpgradedServicesModule
   ],
   declarations: [
     AppComponent
