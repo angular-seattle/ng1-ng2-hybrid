@@ -5,6 +5,16 @@ import { DebugElement } from '@angular/core';
 
 import { HelloWorldComponent } from './hello-world.component';
 
+function ng1RandomNumbersMock() {
+  const service = {
+    randomInt: function() {
+      return 1;
+    }
+  };
+
+  return service;
+}
+
 describe('HelloWorldComponent', () => {
   let component: HelloWorldComponent;
   let fixture: ComponentFixture<HelloWorldComponent>;
@@ -12,7 +22,8 @@ describe('HelloWorldComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelloWorldComponent ]
+      declarations: [ HelloWorldComponent ],
+      providers: [{provide: 'ng1RandomNumbers', useFactory: ng1RandomNumbersMock}]
     })
     .compileComponents();
   }));
@@ -30,6 +41,6 @@ describe('HelloWorldComponent', () => {
   });
 
   it('should display hello-world', () => {
-    expect(element.innerText).toBe('hello-world works!');
+    expect(fixture.debugElement.query(By.css('p')).nativeElement.innerText).toBe('hello-world works!');
   });
 });
