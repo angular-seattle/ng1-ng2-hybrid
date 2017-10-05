@@ -187,4 +187,4 @@ You should now be able to run `ng build` and see that the example app builds wit
 Grunt should already be running in a separate shell and serving the AngularJS app.  Open another shell, and leave `ng build --watch` running so that changes to the Angular files will be watched and the builds updated as they change.
 
 
-
+## [Step 2: Bootstrapping AngularJS from Angular](./step-2.md)
