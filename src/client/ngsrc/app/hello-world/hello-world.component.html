@@ -4,6 +4,7 @@
 
 <h1>Look at these random numbers!!?!?!</h1>
 
-<ul>
-  <li *ngFor="let number of randomNumbers">{{number}}</li>
-</ul>
+<span *ngFor="let number of randomNumbers; let last = last;">
+  <span *ngIf="!last">{{number}},</span>
+  <span *ngIf="last">{{number}}.</span>
+</span>

@@ -171,17 +171,17 @@ module.exports = function(grunt) {
       ng_dev_build: {
         command: 'npm run build:dev',
         stdout: true,
-        stderr: false
+        stderr: true
       },
       ng_watch: {
         command: 'npm run build:watch',
         stdout: true,
-        stderr: false
+        stderr: true
       },
       ng_build: {
         command: 'npm run build',
         stdout: true,
-        stderr: false
+        stderr: true
       }
     },
     wiredep: {

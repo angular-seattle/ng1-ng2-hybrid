@@ -1,4 +1,4 @@
-angular_version="4.2.4"
+angular_version="4.4.4"
 
 yarn add -E @angular/core@$angular_version \
   @angular/common@$angular_version \
