@@ -44,7 +44,7 @@ angular.element(document.body).injector().get('$rootScope').$watch(incrementAndU
 
 **BEFORE**
 
-![](./readme_assets/zonejs_before.gif)
+![](./assets/zonejs_before.gif)
 
 One solution is to grab all the event handlers that you want to run outside of the Angular zone, deregister them, then re-register them outside the Angular zone.  We can do this in the run block of setting up our angularjs application.
 
@@ -107,6 +107,6 @@ Here the events we grab are the event handler function names from AngularMateria
 
 **AFTER**
 
-![](./readme_assets/zonejs_after.gif)
+![](./assets/zonejs_after.gif)
 
 [See pull request which introduced this code](/../../../pull/10/files)
